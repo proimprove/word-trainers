@@ -1,866 +1,581 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Тренажёр «Описание слова» + Gemini AI</title>
-    <!-- Telegram Web App SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom styles to prevent layout shifts and improve mobile UX */
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f3f4f6;
-            -webkit-tap-highlight-color: transparent;
-            overscroll-behavior-y: none; /* Prevent pull-to-refresh on mobile */
-        }
-        
-        .screen {
-            display: none;
-            min-height: 100vh;
-            flex-direction: column;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Описание слова</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-        .screen.active {
-            display: flex;
-        }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
-        /* Smooth transitions */
-        .btn {
-            transition: all 0.2s ease;
-        }
-        .btn:active {
-            transform: scale(0.96);
-        }
+:root{
+  --p:#7F77DD;
+  --pd:#3C3489;
+  --pm:#EEEDFE;
+  --pb:#d0c8f8;
+  --pmut:#AFA9EC;
+  --bg:#f0eeff;
+  --white:#fff;
+  --red:#E24B4A;
+}
 
-        /* Timer animation */
-        .timer-bar-container {
-            width: 100%;
-            height: 8px;
-            background-color: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .timer-bar {
-            height: 100%;
-            background-color: #3b82f6;
-            width: 100%;
-            transition: width 1s linear;
-        }
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--bg);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:16px 16px 48px;
+  color:var(--pd);
+}
 
-        .timer-bar.urgent {
-            background-color: #ef4444;
-        }
+.screen{display:none;width:100%;max-width:360px;flex-direction:column;gap:14px;}
+.screen.active{display:flex;}
 
-        /* Card styles */
-        .card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
+.card{background:var(--white);border-radius:22px;border:.5px solid var(--pb);padding:18px 20px;}
+.card-label{font-size:11px;font-weight:700;letter-spacing:.8px;color:var(--pmut);text-transform:uppercase;margin-bottom:12px;}
+.back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--pmut);cursor:pointer;padding:4px 0;}
+.back-btn:active{opacity:.6;}
 
-        /* Toggle Switch */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #3b82f6;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #3b82f6;
-        }
+/* HOME */
+.home-hero{text-align:center;padding:12px 0 4px;}
+.home-hero h1{font-size:28px;font-weight:900;color:var(--pd);letter-spacing:-0.5px;}
+.home-hero p{font-size:13px;color:var(--pmut);margin-top:4px;}
 
-        /* Flash effect for word change */
-        @keyframes flash {
-            0% { opacity: 0; transform: scale(0.95); }
-            50% { opacity: 1; transform: scale(1.02); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        .word-anim {
-            animation: flash 0.3s ease-out forwards;
-        }
-        
-        /* Loading Spinner */
-        .loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3b82f6;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
+.how-list{display:flex;flex-direction:column;gap:8px;}
+.how-item{display:flex;gap:10px;align-items:flex-start;}
+.how-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
+.how-text{font-size:13px;font-weight:600;color:var(--pd);line-height:1.45;}
+.how-text em{color:var(--pmut);font-style:normal;font-weight:400;}
+
+.rule-block{background:var(--pm);border-radius:14px;padding:12px 14px;border-left:3px solid var(--p);}
+.rule-block .rule-title{font-size:11px;font-weight:800;color:var(--p);letter-spacing:.6px;text-transform:uppercase;margin-bottom:6px;}
+.rule-row{font-size:13px;font-weight:600;color:var(--pd);margin-bottom:4px;line-height:1.4;}
+.rule-row:last-child{margin-bottom:0;}
+.rule-row em{color:var(--pmut);font-style:normal;}
+
+.home-btns{display:flex;flex-direction:column;gap:10px;}
+.btn-primary{background:var(--p);color:#fff;border:none;border-radius:18px;padding:16px 20px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;width:100%;text-align:left;display:flex;align-items:center;justify-content:space-between;transition:transform .1s,opacity .1s;}
+.btn-primary:active{transform:scale(.97);opacity:.9;}
+.btn-primary .btn-sub{font-size:11px;font-weight:600;opacity:.75;margin-top:2px;}
+.btn-primary .btn-left{display:flex;flex-direction:column;}
+.btn-primary .btn-arrow{font-size:20px;opacity:.7;}
+.btn-secondary{background:var(--white);color:var(--pd);border:1.5px solid var(--pb);border-radius:18px;padding:14px 20px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;width:100%;text-align:left;display:flex;align-items:center;justify-content:space-between;transition:all .1s;}
+.btn-secondary:active{background:var(--pm);}
+.btn-secondary .btn-sub{font-size:11px;font-weight:600;color:var(--pmut);margin-top:2px;}
+.btn-secondary .btn-arrow{font-size:18px;color:var(--pmut);}
+
+/* CUSTOM */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cat-btn{padding:10px 8px;border-radius:14px;border:1.5px solid var(--pb);background:var(--pm);color:var(--pd);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;}
+.cat-btn.selected{background:var(--p);color:#fff;border-color:var(--p);}
+.cat-btn .ce{display:block;font-size:19px;margin-bottom:3px;}
+
+.setting-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.setting-row:last-child{margin-bottom:0;}
+.sname{font-size:14px;font-weight:700;}
+.sdesc{font-size:12px;color:var(--pmut);}
+.stepper{display:flex;align-items:center;gap:8px;}
+.step-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--pb);background:var(--pm);color:var(--pd);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.step-btn:active{background:var(--p);color:#fff;border-color:var(--p);}
+.step-val{font-size:14px;font-weight:800;color:var(--pd);min-width:42px;text-align:center;}
+
+/* THEORY */
+.theory-hero{text-align:center;padding:4px 0;}
+.theory-hero .th{font-size:36px;margin-bottom:4px;}
+.theory-hero h2{font-size:20px;font-weight:800;}
+.theory-hero p{font-size:13px;color:var(--pmut);margin-top:4px;}
+.theory-section{margin-bottom:16px;}
+.theory-section:last-child{margin-bottom:0;}
+.tsec-title{font-size:13px;font-weight:800;color:var(--p);margin-bottom:8px;}
+.tsec-body{font-size:13px;font-weight:600;color:var(--pd);line-height:1.6;}
+.tsec-body em{color:var(--pmut);font-style:normal;font-weight:400;}
+.theory-tip{background:var(--pm);border-radius:14px;padding:12px 14px;margin-top:10px;font-size:12px;font-weight:600;color:var(--pd);line-height:1.5;border-left:3px solid var(--p);}
+
+/* GAME */
+.topbar{display:flex;justify-content:space-between;align-items:center;}
+.cat-badge{font-size:12px;font-weight:700;color:var(--p);background:var(--pm);padding:5px 12px;border-radius:100px;}
+.sess-time{font-size:13px;font-weight:700;color:var(--pmut);}
+.sess-time b{color:var(--p);font-weight:800;}
+.sess-time.urgent b{color:var(--red);}
+
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--pmut);font-weight:600;margin-bottom:6px;}
+.prog-bg{background:#ddd8f8;border-radius:100px;height:6px;overflow:hidden;}
+.prog-fill{background:var(--p);height:100%;border-radius:100px;transition:width .4s ease;}
+
+.word-card{background:var(--white);border-radius:28px;border:.5px solid var(--pb);padding:22px 20px 20px;text-align:center;}
+.word-hint{font-size:11px;font-weight:700;letter-spacing:.8px;color:var(--pmut);text-transform:uppercase;margin-bottom:8px;}
+.word-main{font-size:38px;font-weight:900;color:var(--pd);letter-spacing:-1px;line-height:1.1;margin-bottom:6px;}
+.word-question{font-size:14px;font-weight:700;color:var(--p);margin-bottom:6px;}
+.word-example{font-size:11px;color:var(--pmut);font-weight:600;margin-bottom:16px;line-height:1.4;min-height:28px;}
+
+.hints-row{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.hint-chip{font-size:11px;font-weight:700;color:var(--pmut);background:var(--pm);padding:4px 10px;border-radius:100px;border:.5px solid var(--pb);}
+
+.timer-ring{position:relative;width:72px;height:72px;margin:0 auto;}
+.timer-ring svg{transform:rotate(-90deg);}
+.timer-ring circle.bg{fill:none;stroke:#e0dbf8;stroke-width:5;}
+.timer-ring circle.fg{fill:none;stroke:var(--p);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .3s;}
+.timer-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--pd);}
+
+.skip-btn{background:transparent;color:var(--pmut);border:1.5px solid var(--pb);border-radius:14px;padding:10px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;transition:all .15s;}
+.skip-btn:active{background:var(--pm);}
+
+.game-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.gc-btn{padding:10px 6px;border-radius:14px;border:1.5px solid var(--pb);background:var(--pm);color:var(--pd);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .15s;}
+.gc-btn:active{opacity:.7;}
+.gc-btn .gc-icon{font-size:18px;}
+.gc-btn.pause-active{background:var(--p);color:#fff;border-color:var(--p);}
+.gc-btn.stop-btn{border-color:#f0c8c8;background:#fff0f0;color:#c0392b;}
+
+/* OVERLAYS */
+.overlay{display:none;position:fixed;inset:0;background:rgba(60,52,137,.55);backdrop-filter:blur(4px);z-index:100;align-items:center;justify-content:center;}
+.overlay.show{display:flex;}
+.overlay-box{background:var(--white);border-radius:28px;padding:32px 28px;text-align:center;max-width:280px;width:90%;}
+.overlay-box h3{font-size:22px;font-weight:900;color:var(--pd);margin-bottom:6px;}
+.overlay-box p{font-size:13px;color:var(--pmut);margin-bottom:20px;}
+.ov-btn-primary{background:var(--p);color:#fff;border:none;border-radius:16px;padding:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;width:100%;margin-bottom:8px;}
+.ov-btn-secondary{background:transparent;color:var(--pmut);border:1.5px solid var(--pb);border-radius:16px;padding:12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;}
+
+#countdown-num{font-size:80px;font-weight:900;color:var(--pd);line-height:1;margin-bottom:8px;animation:cntpop .35s ease;}
+@keyframes cntpop{0%{transform:scale(1.4);opacity:.6;}100%{transform:scale(1);opacity:1;}}
+
+/* RESULT */
+.res-header{text-align:center;padding:8px 0;}
+.res-emoji{font-size:48px;margin-bottom:8px;}
+.res-header h2{font-size:24px;font-weight:800;}
+.res-header p{font-size:13px;color:var(--pmut);margin-top:4px;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.stat-card{background:var(--white);border-radius:18px;border:.5px solid var(--pb);padding:14px 16px;text-align:center;}
+.stat-num{font-size:28px;font-weight:800;}
+.stat-label{font-size:12px;color:var(--pmut);font-weight:600;margin-top:2px;}
+.words-played{display:flex;flex-wrap:wrap;gap:7px;}
+.word-pill{background:var(--pm);color:var(--pd);font-size:13px;font-weight:700;padding:6px 14px;border-radius:100px;border:.5px solid var(--pb);}
+.restart-btn{background:var(--p);color:#fff;border:none;border-radius:18px;padding:16px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;width:100%;transition:transform .1s;}
+.restart-btn:active{transform:scale(.97);}
+</style>
 </head>
-<body class="text-gray-800">
+<body>
 
-    <!-- AUDIO CONTEXT HIDDEN ELEMENT -->
-    <div id="audio-root"></div>
+<!-- ══ HOME ══ -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <h1>Описание слова 🎨</h1>
+    <p>Развитие образности и скорости речи</p>
+  </div>
 
-    <!-- ================= SCREENS ================= -->
-
-    <!-- 1. RULES & SETTINGS SCREEN -->
-    <div id="screen-rules" class="screen active p-4 max-w-md mx-auto">
-        <header class="mb-4 text-center">
-            <h1 class="text-2xl font-bold text-indigo-600 flex justify-center items-center gap-2">
-                Описание слова
-                <span class="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full">AI✨</span>
-            </h1>
-            <p class="text-sm text-gray-500" id="welcome-text">Тренажёр устной речи</p>
-        </header>
-
-        <!-- Rules Card -->
-        <div class="card p-5 mb-6 border-l-4 border-indigo-500">
-            <h2 class="font-bold text-lg mb-3">📝 Правила</h2>
-            
-            <div class="space-y-3 text-sm text-gray-700">
-                <p><b>Суть:</b> на экране появляется слово. Твоя задача — вслух называть как можно больше характеристик, которые отвечают на вопрос «какой?».</p>
-                <p><b>Зачем:</b> скорость речи, конкретизация, образность, снятие цензуры.</p>
-                
-                <p class="font-bold mt-2">Как играть:</p>
-                <ul class="list-disc pl-5 space-y-1">
-                    <li>Нажми старт.</li>
-                    <li>На экране слово и таймер.</li>
-                    <li>Говори вслух только «какой/какая/какое/какие» — без пауз и объяснений.</li>
-                    <li>По сигналу появится следующее слово.</li>
-                </ul>
-
-                <p><b>Правило:</b> не называй «что это» и «что делает». Только качества и признаки.</p>
-                <p><b>Застрял? Используй:</b> цвет, форму, материал, эмоцию или <b>AI-подсказку</b>.</p>
-            </div>
-
-            <div class="mt-4 p-3 bg-gray-50 rounded-lg text-xs">
-                <p><b>Пример (Стол):</b> <span class="text-green-600">Деревянный, твёрдый, письменный...</span></p>
-                <p class="mt-1"><span class="text-red-500">Нельзя:</span> Стоит, мебель, за ним едят...</p>
-            </div>
-            
-            <label class="flex items-center mt-4 cursor-pointer">
-                <input type="checkbox" id="rules-accepted" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-300">
-                <span class="ml-2 text-sm font-medium">Правила понятны</span>
-            </label>
-        </div>
-
-        <!-- Settings -->
-        <div class="card p-5 mb-20 flex-grow">
-            <h2 class="font-bold text-lg mb-4">⚙️ Настройки</h2>
-            
-            <!-- Time per word -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Время на слово (сек)</label>
-                <div class="grid grid-cols-4 gap-2">
-                    <button class="setting-btn-time p-2 text-sm border rounded hover:bg-indigo-50" data-value="15">15</button>
-                    <button class="setting-btn-time p-2 text-sm border rounded hover:bg-indigo-50" data-value="30">30</button>
-                    <button class="setting-btn-time p-2 text-sm border rounded hover:bg-indigo-50" data-value="45">45</button>
-                    <button class="setting-btn-time p-2 text-sm border rounded hover:bg-indigo-50" data-value="60">60</button>
-                </div>
-            </div>
-
-            <!-- Total Time -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Длительность (мин)</label>
-                <select id="total-time-select" class="w-full p-2 border rounded bg-white">
-                    <option value="1">1 минута</option>
-                    <option value="2">2 минуты</option>
-                    <option value="3">3 минуты</option>
-                    <option value="5">5 минут</option>
-                    <option value="10">10 минут</option>
-                    <option value="0">Безлимит (пока не остановлю)</option>
-                </select>
-            </div>
-
-            <!-- Category -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Источник слов</label>
-                <select id="category-select" class="w-full p-2 border rounded bg-white">
-                    <option value="all">Все категории (Случайно)</option>
-                    <option value="objects">Предметы (Материальное)</option>
-                    <option value="abstract">Абстрактное (Чувства, идеи)</option>
-                    <option value="characters">Персонажи и Профессии</option>
-                    <option value="ai_gen">✨ ИИ-Генератор (Любая тема)</option>
-                    <option value="custom">Свой список...</option>
-                </select>
-            </div>
-
-             <!-- AI Generator Area (Hidden by default) -->
-             <div id="ai-generator-area" class="mb-4 hidden p-3 bg-indigo-50 rounded-lg border border-indigo-100">
-                <label class="block text-sm font-bold text-indigo-700 mb-1">Тема для генерации ✨</label>
-                <div class="flex gap-2">
-                    <input type="text" id="ai-topic-input" class="w-full p-2 border rounded text-sm" placeholder="Напр: Гарри Поттер, Космос, Еда...">
-                    <button id="btn-generate-ai" class="bg-indigo-600 text-white px-3 py-2 rounded text-sm font-medium whitespace-nowrap flex items-center gap-1">
-                        <span id="ai-gen-icon">✨</span>
-                        <div id="ai-gen-loader" class="loader hidden"></div>
-                        Создать
-                    </button>
-                </div>
-                <p id="ai-status-text" class="text-xs text-gray-500 mt-1 pl-1"></p>
-            </div>
-
-             <!-- Custom Words Area (Hidden by default) -->
-             <div id="custom-words-area" class="mb-4 hidden">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Введите слова (через запятую)</label>
-                <textarea id="custom-words-input" class="w-full p-2 border rounded text-sm h-24" placeholder="Яблоко, Радость, Программист..."></textarea>
-            </div>
-
-            <!-- Mode & Sound -->
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-sm">Авто-переключение слов</span>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="auto-mode-toggle" class="sr-only peer" checked>
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                </label>
-            </div>
-            <div class="flex justify-between items-center">
-                <span class="text-sm">Звуковые сигналы</span>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="sound-toggle" class="sr-only peer" checked>
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                </label>
-            </div>
-        </div>
-
-        <!-- Start Button Wrapper (Fixed at bottom) -->
-        <div class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t md:relative md:border-none md:bg-transparent md:p-0">
-            <button id="btn-start" class="btn w-full bg-indigo-600 text-white font-bold py-4 rounded-xl text-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                НАЧАТЬ ТРЕНИРОВКУ
-            </button>
-        </div>
+  <div class="card">
+    <div class="card-label">Как играть?</div>
+    <div class="how-list">
+      <div class="how-item"><span class="how-icon">👁️</span><div class="how-text">Видишь слово на экране</div></div>
+      <div class="how-item"><span class="how-icon">🗣️</span><div class="how-text">Говоришь вслух <em>только прилагательные</em> — «какой? какая? какое?» — без остановки</div></div>
+      <div class="how-item"><span class="how-icon">🚫</span><div class="how-text"><em>Нельзя:</em> глаголы («стоит»), существительные («мебель»), объяснения</div></div>
+      <div class="how-item"><span class="how-icon">💡</span><div class="how-text">Застрял? Думай: <em>цвет, форма, размер, материал, эмоция, температура</em></div></div>
     </div>
 
-    <!-- 2. GAME SCREEN -->
-    <div id="screen-game" class="screen bg-white h-screen relative">
-        <!-- Top Bar -->
-        <div class="flex justify-between items-center p-4 border-b">
-            <div class="text-sm font-mono text-gray-500" id="session-progress">Слово 1 / --</div>
-            <div class="text-sm font-bold text-red-500" id="total-timer-display">00:00</div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="flex-grow flex flex-col justify-center items-center p-6 text-center relative w-full">
-            <div class="mb-8 w-full max-w-sm">
-                <div class="flex justify-between text-xs text-gray-400 mb-1">
-                    <span>Таймер слова</span>
-                    <span id="word-timer-text">30с</span>
-                </div>
-                <div class="timer-bar-container">
-                    <div id="word-timer-bar" class="timer-bar"></div>
-                </div>
-            </div>
-
-            <div id="word-display" class="text-4xl md:text-5xl font-bold text-gray-800 mb-4 break-words w-full word-anim">
-                Загрузка...
-            </div>
-            
-            <p class="text-gray-400 text-sm italic mt-2">Отвечай вслух: «Какой?»</p>
-
-            <!-- AI Hint Section -->
-            <div class="mt-8 w-full max-w-xs min-h-[60px] flex flex-col items-center justify-center">
-                 <button id="btn-hint" class="text-indigo-600 text-sm font-medium bg-indigo-50 px-4 py-2 rounded-full hover:bg-indigo-100 flex items-center gap-2 transition-colors">
-                    <span>✨ Подсказка</span>
-                    <div id="hint-loader" class="loader hidden w-4 h-4 border-2 border-t-indigo-600"></div>
-                 </button>
-                 <div id="hint-text" class="text-sm text-gray-600 mt-2 font-medium hidden text-center animate-fade-in">
-                    <!-- Hint text will appear here -->
-                 </div>
-            </div>
-        </div>
-
-        <!-- Pause Overlay -->
-        <div id="pause-overlay" class="absolute inset-0 bg-white/95 z-50 flex flex-col items-center justify-center hidden">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">ПАУЗА</h2>
-            <button id="btn-resume" class="btn bg-indigo-600 text-white px-8 py-3 rounded-full text-lg mb-4 shadow-lg">Продолжить</button>
-            <button id="btn-stop-early" class="btn text-red-500 font-medium p-4">Завершить тренировку</button>
-        </div>
-
-        <!-- Controls -->
-        <div class="p-4 pb-8 bg-gray-50 border-t">
-            <div class="max-w-md mx-auto grid grid-cols-3 gap-4">
-                <button id="btn-pause" class="btn bg-white border border-gray-300 text-gray-700 py-4 rounded-xl font-medium shadow-sm">
-                    ⏸ Пауза
-                </button>
-                <button id="btn-next" class="btn col-span-2 bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg shadow-md flex items-center justify-center">
-                    Дальше <span class="ml-2">→</span>
-                </button>
-            </div>
-        </div>
+    <div style="margin-top:14px;">
+      <div class="rule-block">
+        <div class="rule-title">Пример — слово «Стол»</div>
+        <div class="rule-row">✅ Деревянный, твёрдый, письменный, широкий...</div>
+        <div class="rule-row">❌ <em>Стоит, мебель, за ним едят...</em></div>
+      </div>
     </div>
+  </div>
 
-    <!-- 3. RESULT SCREEN -->
-    <div id="screen-result" class="screen p-4 max-w-md mx-auto justify-center">
-        <div class="card p-8 text-center mb-6">
-            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
-                🏁
-            </div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Тренировка завершена!</h2>
-            <p class="text-gray-500 mb-6">Отличная работа над речью.</p>
+  <div class="home-btns">
+    <button class="btn-primary" id="btn-quick">
+      <div class="btn-left">
+        <span>⚡ Быстрый старт</span>
+        <span class="btn-sub">Микс слов · 3 мин · 10 сек на слово</span>
+      </div>
+      <span class="btn-arrow">→</span>
+    </button>
+    <button class="btn-secondary" id="btn-custom">
+      <div class="btn-left">
+        <span>🎛️ Своя игра</span>
+        <span class="btn-sub">Выбери категорию и время</span>
+      </div>
+      <span class="btn-arrow">→</span>
+    </button>
+    <button class="btn-secondary" id="btn-theory">
+      <div class="btn-left">
+        <span>📖 Теория</span>
+        <span class="btn-sub">Зачем это и как работает</span>
+      </div>
+      <span class="btn-arrow">→</span>
+    </button>
+  </div>
+</div>
 
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="p-3 bg-gray-50 rounded-lg">
-                    <div class="text-xs text-gray-400 uppercase">Время</div>
-                    <div class="text-xl font-bold text-indigo-600" id="result-time">05:00</div>
-                </div>
-                <div class="p-3 bg-gray-50 rounded-lg">
-                    <div class="text-xs text-gray-400 uppercase">Слов</div>
-                    <div class="text-xl font-bold text-indigo-600" id="result-count">15</div>
-                </div>
-            </div>
+<!-- ══ CUSTOM ══ -->
+<div class="screen" id="screen-custom">
+  <button class="back-btn" id="back-custom">← Назад</button>
 
-            <div class="text-left text-sm text-gray-500 bg-gray-50 p-3 rounded mb-2">
-                <span class="block">📚 Категория: <span id="result-category" class="font-medium text-gray-700">Все</span></span>
-                <span class="block mt-1">⏱ На слово: <span id="result-word-time" class="font-medium text-gray-700">30 сек</span></span>
-            </div>
-        </div>
-
-        <button id="btn-restart" class="btn w-full bg-indigo-600 text-white font-bold py-3 rounded-xl shadow-lg mb-3">
-            Начать заново
-        </button>
-        <button id="btn-home" class="btn w-full bg-white border border-gray-300 text-gray-700 font-medium py-3 rounded-xl shadow-sm">
-            В меню
-        </button>
+  <div class="card">
+    <div class="card-label">Категория слов</div>
+    <div class="cat-grid" id="cat-grid">
+      <button class="cat-btn selected" data-cat="animals"><span class="ce">🐾</span>Животные</button>
+      <button class="cat-btn" data-cat="objects"><span class="ce">🪑</span>Предметы</button>
+      <button class="cat-btn" data-cat="nature"><span class="ce">🌿</span>Природа</button>
+      <button class="cat-btn" data-cat="food"><span class="ce">🍎</span>Еда</button>
+      <button class="cat-btn" data-cat="emotions"><span class="ce">❤️</span>Эмоции</button>
+      <button class="cat-btn" data-cat="places"><span class="ce">🌍</span>Места</button>
+      <button class="cat-btn" data-cat="people"><span class="ce">🧑</span>Люди</button>
+      <button class="cat-btn" data-cat="tech"><span class="ce">💻</span>Технологии</button>
+      <button class="cat-btn" data-cat="mix" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;"><span class="ce" style="display:inline;font-size:19px;margin:0;">🎲</span>Все вместе</button>
     </div>
+  </div>
 
-    <script>
-        const apiKey = ""; // System will inject the key
+  <div class="card">
+    <div class="card-label">Настройки</div>
+    <div class="setting-row">
+      <div><div class="sname">Время раунда</div><div class="sdesc">Общая длина сессии</div></div>
+      <div class="stepper">
+        <button class="step-btn" id="round-minus">−</button>
+        <span class="step-val" id="round-val">2 мин</span>
+        <button class="step-btn" id="round-plus">+</button>
+      </div>
+    </div>
+    <div class="setting-row">
+      <div><div class="sname">Время на слово</div><div class="sdesc">Секунд на одно слово</div></div>
+      <div class="stepper">
+        <button class="step-btn" id="word-minus">−</button>
+        <span class="step-val" id="word-val">10 сек</span>
+        <button class="step-btn" id="word-plus">+</button>
+      </div>
+    </div>
+  </div>
 
-        // --- DATA & DICTIONARIES ---
-        const defaultDictionaries = {
-            objects: [
-                "Стол", "Телефон", "Яблоко", "Кирпич", "Подушка", "Вода", "Зеркало", "Ключ", 
-                "Дерево", "Книга", "Ботинок", "Колесо", "Лампа", "Нож", "Снег", "Песок",
-                "Кот", "Полотенце", "Монета", "Чемодан", "Окно", "Мыло", "Гитара", "Часы"
-            ],
-            abstract: [
-                "Радость", "Время", "Свобода", "Дружба", "Успех", "Тишина", "Хаос", "Любовь",
-                "Страх", "Идея", "Музыка", "Сон", "Будущее", "Талант", "Честь", "Одиночество",
-                "Правда", "Риск", "Уют", "Энергия", "Грусть", "Мысль", "Ветер"
-            ],
-            characters: [
-                "Врач", "Клоун", "Учитель", "Пират", "Робот", "Ребёнок", "Бабушка", "Король",
-                "Шпион", "Повар", "Художник", "Солдат", "Водитель", "Призрак", "Супергерой",
-                "Детектив", "Фермер", "Студент", "Космонавт", "Вампир"
-            ]
-        };
+  <button class="btn-primary" id="custom-start-btn">
+    <div class="btn-left"><span>Начать игру</span></div>
+    <span class="btn-arrow">→</span>
+  </button>
+</div>
 
-        // --- APP STATE ---
-        const state = {
-            settings: {
-                timePerWord: 30,
-                totalTimeMinutes: 3,
-                category: 'all',
-                autoSwitch: true,
-                soundEnabled: true,
-                customWords: [],
-                aiWords: [], // Store generated words here
-                lastAiTopic: ""
-            },
-            session: {
-                isActive: false,
-                isPaused: false,
-                startTime: 0,
-                totalElapsed: 0,
-                wordsShown: 0,
-                currentWord: "",
-                wordStartTime: 0,
-                timerInterval: null,
-                wordsQueue: [],
-                totalTimeLimitMs: 0
-            }
-        };
+<!-- ══ THEORY ══ -->
+<div class="screen" id="screen-theory">
+  <button class="back-btn" id="back-theory">← Назад</button>
+  <div class="theory-hero">
+    <div class="th">🎨</div>
+    <h2>Теория описания</h2>
+    <p>Зачем описывать слова прилагательными</p>
+  </div>
+  <div class="card">
+    <div class="theory-section">
+      <div class="tsec-title">💡 В чём суть упражнения?</div>
+      <div class="tsec-body">Наш мозг привык мыслить <em>существительными и глаголами</em> — быстро и функционально. Прилагательные — это «медленный» слой, образный. Упражнение тренирует <em>переключаться на чувственное восприятие</em> и описывать мир через качества, а не через функции.</div>
+    </div>
+    <div class="theory-section">
+      <div class="tsec-title">🔤 Почему только «какой?»</div>
+      <div class="tsec-body">Прилагательное заставляет мозг <em>наблюдать, а не объяснять.</em> Когда ты говоришь «деревянный» вместо «это стол» — ты переходишь от категории к образу. Это основа метафорического мышления и <em>точности речи.</em></div>
+      <div class="theory-tip">📌 Попробуй: «Лимон» — скажи 5 прилагательных за 5 секунд. Жёлтый, кислый, овальный, яркий, свежий. Это и есть упражнение.</div>
+    </div>
+    <div class="theory-section">
+      <div class="tsec-title">🏋️ Что это развивает?</div>
+      <div class="tsec-body"><em>Скорость речи</em> — меньше пауз и «эмм». <em>Образность</em> — богатый язык описаний. <em>Снятие цензуры</em> — ты перестаёшь думать «правильно ли», просто называешь. <em>Словарный запас</em> — активный, не пассивный.</div>
+    </div>
+    <div class="theory-section">
+      <div class="tsec-title">📈 Как использовать эффективно?</div>
+      <div class="tsec-body">Начни с категории <em>«Предметы»</em> — их проще всего описывать физически. Затем переходи к <em>«Эмоциям»</em> — это сложнее, потому что требует метафор. Занимайся <em>3–5 минут в день</em>, и через неделю заметишь разницу в речи.</div>
+      <div class="theory-tip">🎯 Цель: 8–12 прилагательных за 10 секунд без повторов. Это признак развитого образного мышления.</div>
+    </div>
+  </div>
+</div>
 
-        // --- AUDIO HELPERS ---
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        function playSound(type) {
-            if (!state.settings.soundEnabled) return;
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+<!-- ══ GAME ══ -->
+<div class="screen" id="screen-game">
+  <div class="topbar">
+    <span class="cat-badge" id="g-cat">Животные</span>
+    <span class="sess-time" id="g-sess-wrap">Осталось <b id="g-sess-time">2:00</b></span>
+  </div>
+  <div>
+    <div class="prog-meta">
+      <span id="g-word-num">Слово 1</span>
+      <span id="g-prog-pct">0%</span>
+    </div>
+    <div class="prog-bg"><div class="prog-fill" id="g-prog-bar" style="width:0%"></div></div>
+  </div>
 
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
+  <div class="word-card">
+    <div class="word-hint">Говори вслух — только прилагательные</div>
+    <div class="word-main" id="g-word">—</div>
+    <div class="word-question">Какой? Какая? Какое?</div>
+    <div class="hints-row">
+      <span class="hint-chip">цвет</span>
+      <span class="hint-chip">форма</span>
+      <span class="hint-chip">размер</span>
+      <span class="hint-chip">материал</span>
+      <span class="hint-chip">эмоция</span>
+    </div>
+    <div class="timer-ring">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <circle class="bg" cx="36" cy="36" r="30"/>
+        <circle class="fg" id="g-circle" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="0"/>
+      </svg>
+      <div class="timer-text" id="g-timer">10</div>
+    </div>
+  </div>
 
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+  <button class="skip-btn" id="g-skip">Пропустить слово →</button>
 
-            if (type === 'tick') {
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
-                oscillator.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
-                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-                oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 0.05);
-            } else if (type === 'switch') {
-                oscillator.type = 'triangle';
-                oscillator.frequency.setValueAtTime(400, audioCtx.currentTime);
-                oscillator.frequency.linearRampToValueAtTime(600, audioCtx.currentTime + 0.1);
-                gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                gainNode.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 0.3);
-            } else if (type === 'end') {
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(500, audioCtx.currentTime);
-                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime + 0.2);
-                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                gainNode.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
-                oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 0.6);
-            }
-        }
+  <div class="game-controls">
+    <button class="gc-btn" id="g-pause">
+      <span class="gc-icon" id="g-pause-icon">⏸️</span>
+      <span id="g-pause-label">Пауза</span>
+    </button>
+    <button class="gc-btn stop-btn" id="g-stop">
+      <span class="gc-icon">⏹️</span>
+      <span>Стоп</span>
+    </button>
+    <button class="gc-btn" id="g-menu">
+      <span class="gc-icon">🏠</span>
+      <span>Меню</span>
+    </button>
+  </div>
+</div>
 
-        // --- GEMINI API HELPERS ---
-        async function callGemini(prompt) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }]
-            };
-            
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-            } catch (error) {
-                console.error("Gemini API Error:", error);
-                return null;
-            }
-        }
+<!-- ══ RESULT ══ -->
+<div class="screen" id="screen-result">
+  <div class="res-header">
+    <div class="res-emoji">🎨</div>
+    <h2>Раунд завершён!</h2>
+    <p id="r-sub">Образность прокачана</p>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-num" id="r-words">0</div><div class="stat-label">Слов разобрано</div></div>
+    <div class="stat-card"><div class="stat-num" id="r-time">0</div><div class="stat-label">Минут тренировки</div></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Слова этой сессии</div>
+    <div class="words-played" id="r-list"></div>
+  </div>
+  <button class="restart-btn" id="r-restart">Играть ещё раз →</button>
+</div>
 
-        async function generateAiWords(topic) {
-            const prompt = `Generate a JSON array of 25 distinct Russian nouns (single words, no phrases) related to the topic: "${topic}". 
-            The words should be concrete enough to describe with adjectives (e.g. if topic is Harry Potter, use 'Wand', 'Owl', not 'Magic'). 
-            Output ONLY the raw JSON array, no markdown code blocks, no other text.`;
-            
-            try {
-                const text = await callGemini(prompt);
-                if (!text) throw new Error("No response");
-                
-                // Clean markdown if present
-                const jsonStr = text.replace(/```json|```/g, '').trim();
-                return JSON.parse(jsonStr);
-            } catch (e) {
-                console.error("Parsing error", e);
-                return ["Ошибка AI", "Попробуй", "Снова"];
-            }
-        }
+<!-- PAUSE OVERLAY -->
+<div class="overlay" id="pause-overlay">
+  <div class="overlay-box">
+    <h3>⏸ Пауза</h3>
+    <p>Игра приостановлена</p>
+    <button class="ov-btn-primary" id="pause-resume">▶ Продолжить</button>
+    <button class="ov-btn-secondary" id="pause-menu">← Выйти в меню</button>
+  </div>
+</div>
 
-        async function getAiHint(word) {
-            const prompt = `Give me 3 short Russian adjectives to describe the word "${word}" WITHOUT naming the word itself or using same-root words. 
-            Format: "Adj1, Adj2, Adj3". Keep it simple.`;
-            
-            const text = await callGemini(prompt);
-            return text ? text.trim() : "Не могу придумать...";
-        }
+<!-- COUNTDOWN OVERLAY -->
+<div class="overlay" id="countdown-overlay">
+  <div class="overlay-box" style="padding:40px 28px;">
+    <div id="countdown-num">5</div>
+    <div id="countdown-label" style="font-size:18px;font-weight:700;color:var(--pmut);">Приготовься</div>
+  </div>
+</div>
 
-        // --- DOM ELEMENTS ---
-        const screens = {
-            rules: document.getElementById('screen-rules'),
-            game: document.getElementById('screen-game'),
-            result: document.getElementById('screen-result')
-        };
-        const els = {
-            startBtn: document.getElementById('btn-start'),
-            rulesCheck: document.getElementById('rules-accepted'),
-            timeBtns: document.querySelectorAll('.setting-btn-time'),
-            totalTimeSelect: document.getElementById('total-time-select'),
-            categorySelect: document.getElementById('category-select'),
-            
-            // Custom & AI Areas
-            customWordsArea: document.getElementById('custom-words-area'),
-            customWordsInput: document.getElementById('custom-words-input'),
-            aiGeneratorArea: document.getElementById('ai-generator-area'),
-            aiTopicInput: document.getElementById('ai-topic-input'),
-            btnGenerateAi: document.getElementById('btn-generate-ai'),
-            aiStatusText: document.getElementById('ai-status-text'),
-            aiGenLoader: document.getElementById('ai-gen-loader'),
-            aiGenIcon: document.getElementById('ai-gen-icon'),
+<script>
+// ══ WORDS ══
+const WORDS = {
+  animals:  ['Медведь','Орёл','Дельфин','Волк','Лиса','Слон','Тигр','Кролик','Лошадь','Пингвин','Жираф','Крокодил','Обезьяна','Олень','Сова','Кот','Собака','Змея','Черепаха','Попугай','Лев','Тюлень','Бобёр','Зебра','Носорог','Гепард','Верблюд','Страус','Павлин','Акула','Осьминог','Бабочка','Пчела','Муравей','Ворона','Лось','Белка','Ёж','Барсук','Хомяк','Горилла','Кенгуру','Коала','Ягуар','Фламинго','Аист','Стрекоза','Улитка','Краб','Леопард'],
+  objects:  ['Зеркало','Ключ','Лампа','Часы','Книга','Стол','Телефон','Окно','Замок','Шляпа','Ложка','Компас','Верёвка','Свеча','Рюкзак','Нож','Монета','Зонт','Очки','Камень','Молоток','Гвоздь','Игла','Ткань','Бутылка','Тарелка','Кружка','Конверт','Марка','Фонарь','Корзина','Щётка','Расчёска','Линейка','Ножницы','Скрепка','Кнопка','Пуговица','Лента','Цепочка','Браслет','Кольцо','Сумка','Перчатка','Шарф','Пояс','Флаг','Печать','Штамп','Ключница'],
+  nature:   ['Гора','Река','Лес','Океан','Пустыня','Вулкан','Ледник','Болото','Водопад','Туман','Гроза','Радуга','Закат','Скала','Облако','Снег','Ветер','Луна','Степь','Рассвет','Пещера','Остров','Полуостров','Хребет','Долина','Каньон','Тундра','Тайга','Коралл','Прибой','Молния','Иней','Роса','Сугроб','Лавина','Поток','Дюна','Гейзер','Трясина','Утёс','Мох','Папоротник','Сосна','Дуб','Берёза','Клён','Ива','Поляна','Овраг','Родник'],
+  food:     ['Яблоко','Хлеб','Мёд','Лимон','Кофе','Суп','Сыр','Торт','Рис','Чеснок','Шоколад','Арбуз','Гриб','Молоко','Перец','Клубника','Орех','Масло','Соль','Мороженое','Груша','Слива','Вишня','Банан','Ананас','Манго','Тыква','Морковь','Свёкла','Капуста','Огурец','Помидор','Картофель','Лук','Шпинат','Укроп','Петрушка','Имбирь','Корица','Ваниль','Пицца','Паста','Суши','Бургер','Блин','Пирог','Варенье','Компот','Чай','Квас'],
+  emotions: ['Радость','Грусть','Злость','Удивление','Страх','Стыд','Гордость','Зависть','Нежность','Тревога','Скука','Восторг','Обида','Вина','Любопытство','Ностальгия','Досада','Счастье','Покой','Восхищение','Растерянность','Отчаяние','Надежда','Вдохновение','Раздражение','Смущение','Благодарность','Ревность','Отвращение','Сострадание','Одиночество','Эйфория','Апатия','Бодрость','Разочарование','Умиление','Азарт','Облегчение','Меланхолия','Уверенность','Сомнение','Ликование','Смирение','Презрение','Влюблённость','Тоска','Беспокойство','Спокойствие','Возбуждение','Ликование'],
+  places:   ['Библиотека','Рынок','Маяк','Тюрьма','Монастырь','Аэропорт','Пляж','Завод','Больница','Замок','Цирк','Кладбище','Стадион','Школа','Ферма','Порт','Шахта','Кафе','Музей','Лаборатория','Мечеть','Собор','Синагога','Храм','Дворец','Крепость','Башня','Рудник','Верфь','Причал','Склад','Теплица','Арена','Галерея','Архив','Обсерватория','Планетарий','Зоопарк','Ботанический сад','Парк','Площадь','Переулок','Мост','Тоннель','Вокзал','Метро','Перекрёсток','Бухта','Маршрут','Причал'],
+  people:   ['Учитель','Врач','Ребёнок','Старик','Художник','Солдат','Судья','Монах','Актёр','Странник','Вождь','Учёный','Поэт','Повар','Шут','Охотник','Торговец','Пилот','Сыщик','Мать','Отец','Брат','Сестра','Бабушка','Дед','Сосед','Друг','Враг','Незнакомец','Подросток','Юноша','Девушка','Старец','Вдова','Сирота','Близнецы','Коллега','Начальник','Подчинённый','Лидер','Изгой','Герой','Злодей','Мудрец','Безумец','Отшельник','Знакомый','Ребёнок','Близкий','Странник'],
+  tech:     ['Экран','Робот','Сеть','Код','Батарея','Антенна','Процессор','Алгоритм','Дрон','Чип','Спутник','Интерфейс','Сигнал','Камера','Сервер','Кабель','Сканер','Принтер','Маршрутизатор','Архив','База данных','Браузер','Облако','Протокол','Шифрование','Уязвимость','Обновление','Прошивка','Консоль','Терминал','Пиксель','Байт','Гигабайт','Частота','Задержка','Компилятор','Отладчик','Фреймворк','Библиотека','Токен','Блокчейн','Транзакция','Виртуальность','Симуляция','Голограмма','Нейросеть','Датчик','Микрофон','Искусственный интеллект','Смарт-контракт'],
+  mix: []
+};
+WORDS.mix = Object.keys(WORDS).filter(k=>k!=='mix').flatMap(k=>WORDS[k]);
 
-            autoModeToggle: document.getElementById('auto-mode-toggle'),
-            soundToggle: document.getElementById('sound-toggle'),
-            
-            // Game elements
-            wordDisplay: document.getElementById('word-display'),
-            wordTimerBar: document.getElementById('word-timer-bar'),
-            wordTimerText: document.getElementById('word-timer-text'),
-            totalTimerDisplay: document.getElementById('total-timer-display'),
-            sessionProgress: document.getElementById('session-progress'),
-            pauseOverlay: document.getElementById('pause-overlay'),
-            btnPause: document.getElementById('btn-pause'),
-            btnResume: document.getElementById('btn-resume'),
-            btnNext: document.getElementById('btn-next'),
-            btnStopEarly: document.getElementById('btn-stop-early'),
-            
-            // Hint elements
-            btnHint: document.getElementById('btn-hint'),
-            hintText: document.getElementById('hint-text'),
-            hintLoader: document.getElementById('hint-loader'),
+const CAT_NAMES = {
+  animals:'🐾 Животные', objects:'🪑 Предметы', nature:'🌿 Природа',
+  food:'🍎 Еда', emotions:'❤️ Эмоции', places:'🌍 Места',
+  people:'🧑 Люди', tech:'💻 Технологии', mix:'🎲 Все вместе'
+};
 
-            // Result elements
-            resTime: document.getElementById('result-time'),
-            resCount: document.getElementById('result-count'),
-            resCat: document.getElementById('result-category'),
-            resWTime: document.getElementById('result-word-time'),
-            btnRestart: document.getElementById('btn-restart'),
-            btnHome: document.getElementById('btn-home'),
+// ══ AUDIO ══
+let actx;
+function ac(){ if(!actx) actx=new(window.AudioContext||window.webkitAudioContext)(); return actx; }
+function beep(f,d,v=.32){ try{ const c=ac(),o=c.createOscillator(),g=c.createGain(); o.connect(g);g.connect(c.destination); o.frequency.value=f; g.gain.setValueAtTime(v,c.currentTime); g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d); o.start();o.stop(c.currentTime+d); }catch(e){} }
+const sndWord=()=>{ beep(440,.1,.28); setTimeout(()=>beep(330,.15,.22),130); };
+const sndSess=()=>{ beep(660,.18,.38); setTimeout(()=>beep(528,.18,.32),220); setTimeout(()=>beep(396,.4,.28),440); };
+document.addEventListener('click',()=>{ try{ac();}catch(e){} },{once:true});
 
-            // Welcome
-            welcomeText: document.getElementById('welcome-text')
-        };
+// ══ STATE ══
+let cfg = { cat:'animals', roundMin:2, wordSec:10 };
+let gs = {};
+let sT, wT;
 
-        // --- INIT ---
-        function init() {
-            // Telegram Mini App Initialization
-            if (window.Telegram && window.Telegram.WebApp) {
-                const tg = window.Telegram.WebApp;
-                tg.ready();
-                tg.expand();
+// ══ NAV ══
+document.getElementById('btn-quick').addEventListener('click',()=>{
+  cfg = { cat:'mix', roundMin:3, wordSec:10 };
+  startGame();
+});
+document.getElementById('btn-custom').addEventListener('click',()=>showScreen('custom'));
+document.getElementById('btn-theory').addEventListener('click',()=>showScreen('theory'));
+document.getElementById('back-custom').addEventListener('click',()=>showScreen('home'));
+document.getElementById('back-theory').addEventListener('click',()=>showScreen('home'));
+document.getElementById('r-restart').addEventListener('click',()=>showScreen('home'));
 
-                // Personalization if user info is available
-                if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-                    const firstName = tg.initDataUnsafe.user.first_name;
-                    if (els.welcomeText) {
-                        els.welcomeText.innerText = `Привет, ${firstName}! Готов тренироваться?`;
-                    }
-                }
-            }
+// ══ CUSTOM ══
+document.querySelectorAll('.cat-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('selected'));
+  b.classList.add('selected'); cfg.cat=b.dataset.cat;
+}));
 
-            loadSettings();
-            setupListeners();
-            checkRulesStatus();
-            updateTimeSelectionUI();
-        }
+function stepper(mi,pi,vi,key,min,max,unit){
+  const u=()=>document.getElementById(vi).textContent=cfg[key]+unit;
+  document.getElementById(mi).addEventListener('click',()=>{ if(cfg[key]>min){cfg[key]--;u();} });
+  document.getElementById(pi).addEventListener('click',()=>{ if(cfg[key]<max){cfg[key]++;u();} });
+}
+stepper('round-minus','round-plus','round-val','roundMin',1,10,' мин');
+stepper('word-minus','word-plus','word-val','wordSec',1,60,' сек');
+document.getElementById('custom-start-btn').addEventListener('click',startGame);
 
-        // --- LOCAL STORAGE & SETTINGS ---
-        function loadSettings() {
-            const saved = localStorage.getItem('wt_settings');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                state.settings = { ...state.settings, ...parsed };
-                
-                // Restore UI states
-                els.totalTimeSelect.value = state.settings.totalTimeMinutes;
-                els.categorySelect.value = state.settings.category;
-                els.autoModeToggle.checked = state.settings.autoSwitch;
-                els.soundToggle.checked = state.settings.soundEnabled;
-                
-                updateCategoryUI(state.settings.category);
-                
-                if(state.settings.customWords) els.customWordsInput.value = state.settings.customWords.join(', ');
-                if(state.settings.lastAiTopic) els.aiTopicInput.value = state.settings.lastAiTopic;
-            }
-        }
+// ══ GAME ══
+function shuffle(a){ return [...a].sort(()=>Math.random()-.5); }
 
-        function saveSettings() {
-            localStorage.setItem('wt_settings', JSON.stringify(state.settings));
-        }
+function startGame(){
+  clearInterval(sT); clearInterval(wT);
+  gs={ words:shuffle(WORDS[cfg.cat]), idx:0, sessLeft:cfg.roundMin*60, sessTotal:cfg.roundMin*60, played:[], paused:false, wLeft:cfg.wordSec };
+  document.getElementById('g-cat').textContent = CAT_NAMES[cfg.cat];
+  document.getElementById('g-sess-wrap').classList.remove('urgent');
+  showScreen('game');
+  startCountdown();
+}
 
-        function updateCategoryUI(category) {
-            els.customWordsArea.classList.add('hidden');
-            els.aiGeneratorArea.classList.add('hidden');
-            
-            if (category === 'custom') {
-                els.customWordsArea.classList.remove('hidden');
-            } else if (category === 'ai_gen') {
-                els.aiGeneratorArea.classList.remove('hidden');
-            }
-        }
+function startCountdown(){
+  const ov=document.getElementById('countdown-overlay');
+  const numEl=document.getElementById('countdown-num');
+  const lblEl=document.getElementById('countdown-label');
+  ov.classList.add('show');
+  let n=5;
+  numEl.textContent=n; lblEl.textContent='Приготовься';
+  beep(440,.08,.25);
+  const tick=setInterval(()=>{
+    n--;
+    if(n>0){
+      numEl.textContent=n;
+      numEl.style.animation='none'; numEl.offsetHeight; numEl.style.animation='';
+      beep(440,.08,.25);
+    } else {
+      clearInterval(tick);
+      numEl.textContent='🚀'; numEl.style.animation='none'; numEl.offsetHeight; numEl.style.animation='';
+      lblEl.textContent='ПОЕХАЛИ!';
+      beep(660,.25,.4);
+      setTimeout(()=>{ ov.classList.remove('show'); loadWord(); startSess(); },700);
+    }
+  },1000);
+}
 
-        // --- LISTENERS ---
-        function setupListeners() {
-            // Rules checkbox
-            els.rulesCheck.addEventListener('change', checkRulesStatus);
+function loadWord(){
+  if(gs.idx>=gs.words.length){ endGame(); return; }
+  document.getElementById('g-word').textContent=gs.words[gs.idx];
+  const pct=Math.round(gs.idx/gs.words.length*100);
+  document.getElementById('g-word-num').textContent='Слово '+(gs.idx+1);
+  document.getElementById('g-prog-pct').textContent=pct+'%';
+  document.getElementById('g-prog-bar').style.width=pct+'%';
+  startWord();
+}
 
-            // Time per word buttons
-            els.timeBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    state.settings.timePerWord = parseInt(btn.dataset.value);
-                    updateTimeSelectionUI();
-                    saveSettings();
-                });
-            });
+const CIRC=188.5;
+function startWord(){
+  clearInterval(wT);
+  gs.wLeft=cfg.wordSec;
+  updRing();
+  wT=setInterval(()=>{ gs.wLeft--; updRing(); if(gs.wLeft<=0){ sndWord(); nextWord(); } },1000);
+}
 
-            // Dropdowns
-            els.totalTimeSelect.addEventListener('change', (e) => {
-                state.settings.totalTimeMinutes = parseInt(e.target.value);
-                saveSettings();
-            });
+function updRing(){
+  const t=gs.wLeft,max=cfg.wordSec;
+  const c=document.getElementById('g-circle');
+  c.style.strokeDashoffset=CIRC*(1-t/max);
+  c.style.stroke=t<=3?'#E24B4A':'#7F77DD';
+  document.getElementById('g-timer').textContent=t;
+}
 
-            els.categorySelect.addEventListener('change', (e) => {
-                state.settings.category = e.target.value;
-                updateCategoryUI(e.target.value);
-                saveSettings();
-            });
+function startSess(){
+  sT=setInterval(()=>{
+    gs.sessLeft--;
+    const m=Math.floor(gs.sessLeft/60),s=gs.sessLeft%60;
+    document.getElementById('g-sess-time').textContent=m+':'+(s<10?'0':'')+s;
+    if(gs.sessLeft<=30) document.getElementById('g-sess-wrap').classList.add('urgent');
+    if(gs.sessLeft<=0){ sndSess(); endGame(); }
+  },1000);
+}
 
-            els.customWordsInput.addEventListener('change', (e) => {
-                const text = e.target.value;
-                state.settings.customWords = text.split(',').map(s => s.trim()).filter(s => s.length > 0);
-                saveSettings();
-            });
+function nextWord(){
+  clearInterval(wT);
+  gs.played.push(gs.words[gs.idx]);
+  gs.idx++;
+  loadWord();
+}
 
-            // AI Generation Button
-            els.btnGenerateAi.addEventListener('click', async () => {
-                const topic = els.aiTopicInput.value.trim();
-                if (!topic) return;
-                
-                // UI Loading State
-                els.btnGenerateAi.disabled = true;
-                els.aiGenIcon.classList.add('hidden');
-                els.aiGenLoader.classList.remove('hidden');
-                els.aiStatusText.innerText = "Генерирую список слов...";
-                els.aiStatusText.className = "text-xs text-indigo-500 mt-1 pl-1";
+document.getElementById('g-skip').addEventListener('click',()=>{ if(gs.paused)return; clearInterval(wT); gs.idx++; loadWord(); });
 
-                const words = await generateAiWords(topic);
-                
-                // UI Finished State
-                els.btnGenerateAi.disabled = false;
-                els.aiGenIcon.classList.remove('hidden');
-                els.aiGenLoader.classList.add('hidden');
-                
-                if (words && words.length > 0) {
-                    state.settings.aiWords = words;
-                    state.settings.lastAiTopic = topic;
-                    saveSettings();
-                    els.aiStatusText.innerText = `Готово! ${words.length} слов по теме "${topic}".`;
-                    els.aiStatusText.className = "text-xs text-green-600 mt-1 pl-1 font-medium";
-                } else {
-                    els.aiStatusText.innerText = "Ошибка генерации. Попробуйте другую тему.";
-                    els.aiStatusText.className = "text-xs text-red-500 mt-1 pl-1";
-                }
-            });
+// ── PAUSE / STOP / MENU ──
+let pauseWordLeft=0;
 
-            // Toggles
-            els.autoModeToggle.addEventListener('change', (e) => {
-                state.settings.autoSwitch = e.target.checked;
-                saveSettings();
-            });
-            els.soundToggle.addEventListener('change', (e) => {
-                state.settings.soundEnabled = e.target.checked;
-                saveSettings();
-            });
+function setPaused(v){
+  gs.paused=v;
+  const btn=document.getElementById('g-pause');
+  const icon=document.getElementById('g-pause-icon');
+  const lbl=document.getElementById('g-pause-label');
+  if(v){
+    clearInterval(wT); clearInterval(sT);
+    pauseWordLeft=gs.wLeft;
+    btn.classList.add('pause-active');
+    icon.textContent='▶️'; lbl.textContent='Играть';
+    document.getElementById('pause-overlay').classList.add('show');
+  } else {
+    document.getElementById('pause-overlay').classList.remove('show');
+    btn.classList.remove('pause-active');
+    icon.textContent='⏸️'; lbl.textContent='Пауза';
+    gs.wLeft=pauseWordLeft;
+    updRing();
+    wT=setInterval(()=>{ gs.wLeft--; updRing(); if(gs.wLeft<=0){ sndWord(); nextWord(); } },1000);
+    sT=setInterval(()=>{
+      gs.sessLeft--;
+      const m=Math.floor(gs.sessLeft/60),s=gs.sessLeft%60;
+      document.getElementById('g-sess-time').textContent=m+':'+(s<10?'0':'')+s;
+      if(gs.sessLeft<=30) document.getElementById('g-sess-wrap').classList.add('urgent');
+      if(gs.sessLeft<=0){ sndSess(); endGame(); }
+    },1000);
+  }
+}
 
-            // Navigation
-            els.startBtn.addEventListener('click', startSession);
-            els.btnPause.addEventListener('click', pauseGame);
-            els.btnResume.addEventListener('click', resumeGame);
-            els.btnStopEarly.addEventListener('click', finishSession);
-            els.btnNext.addEventListener('click', nextWord);
-            els.btnRestart.addEventListener('click', () => { showScreen('game'); startSession(); });
-            els.btnHome.addEventListener('click', () => showScreen('rules'));
-            
-            // Hint
-            els.btnHint.addEventListener('click', async () => {
-                const word = state.session.currentWord;
-                if (!word || els.hintText.innerText !== "") return; // Prevent double click or empty
-                
-                els.btnHint.disabled = true;
-                els.hintLoader.classList.remove('hidden');
-                
-                const hint = await getAiHint(word);
-                
-                els.hintLoader.classList.add('hidden');
-                els.hintText.innerText = hint;
-                els.hintText.classList.remove('hidden');
-                els.btnHint.classList.add('hidden'); // Hide button after use for this word
-            });
-        }
+document.getElementById('g-pause').addEventListener('click',()=>setPaused(!gs.paused));
+document.getElementById('pause-resume').addEventListener('click',()=>setPaused(false));
+document.getElementById('pause-menu').addEventListener('click',()=>{ clearInterval(wT);clearInterval(sT); document.getElementById('pause-overlay').classList.remove('show'); showScreen('home'); });
+document.getElementById('g-stop').addEventListener('click',()=>{ clearInterval(wT);clearInterval(sT); document.getElementById('pause-overlay').classList.remove('show'); endGame(); });
+document.getElementById('g-menu').addEventListener('click',()=>{ clearInterval(wT);clearInterval(sT); document.getElementById('pause-overlay').classList.remove('show'); showScreen('home'); });
 
-        function checkRulesStatus() {
-            if (els.rulesCheck.checked) {
-                els.startBtn.disabled = false;
-                els.startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-            } else {
-                els.startBtn.disabled = true;
-                els.startBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            }
-        }
+function endGame(){ clearInterval(sT);clearInterval(wT); showResult(); }
 
-        function updateTimeSelectionUI() {
-            els.timeBtns.forEach(btn => {
-                const val = parseInt(btn.dataset.value);
-                if (val === state.settings.timePerWord) {
-                    btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
-                    btn.classList.remove('border-gray-300', 'text-gray-700');
-                } else {
-                    btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
-                    btn.classList.add('border-gray-300', 'text-gray-700');
-                }
-            });
-        }
+// ══ RESULT ══
+function showResult(){
+  document.getElementById('r-words').textContent=gs.played.length;
+  document.getElementById('r-time').textContent=Math.round(gs.sessTotal/60);
+  const subs=['Образность прокачана 🎨','Речь стала богаче!','Прилагательных стало больше 🌟','Продолжай в том же духе!'];
+  document.getElementById('r-sub').textContent=subs[Math.floor(Math.random()*subs.length)];
+  const list=document.getElementById('r-list');
+  list.innerHTML='';
+  if(!gs.played.length){
+    list.innerHTML='<span style="font-size:13px;color:var(--pmut)">Попробуй ещё раз!</span>';
+  } else {
+    gs.played.forEach(w=>{ const e=document.createElement('span'); e.className='word-pill'; e.textContent=w; list.appendChild(e); });
+  }
+  showScreen('result');
+}
 
-        function showScreen(screenName) {
-            Object.values(screens).forEach(el => el.classList.remove('active'));
-            screens[screenName].classList.add('active');
-        }
+function showScreen(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+n).classList.add('active');
+  window.scrollTo(0,0);
+}
 
-        // --- GAME LOGIC ---
-
-        function generateQueue() {
-            let pool = [];
-            const cat = state.settings.category;
-
-            if (cat === 'all') {
-                pool = [...defaultDictionaries.objects, ...defaultDictionaries.abstract, ...defaultDictionaries.characters];
-            } else if (cat === 'custom') {
-                pool = state.settings.customWords.length > 0 ? state.settings.customWords : ["Нет слов (настрой список)"];
-            } else if (cat === 'ai_gen') {
-                 pool = state.settings.aiWords.length > 0 ? state.settings.aiWords : ["Сгенерируйте слова сначала!"];
-            } else {
-                pool = defaultDictionaries[cat] || [];
-            }
-            // Shuffle
-            return pool.sort(() => Math.random() - 0.5);
-        }
-
-        function startSession() {
-            if(audioCtx.state === 'suspended') audioCtx.resume();
-
-            state.session.wordsQueue = generateQueue();
-            state.session.wordsShown = 0;
-            state.session.startTime = Date.now();
-            state.session.totalElapsed = 0; // ms
-            state.session.isActive = true;
-            state.session.isPaused = false;
-            
-            // Calc total limit
-            state.session.totalTimeLimitMs = state.settings.totalTimeMinutes * 60 * 1000;
-
-            showScreen('game');
-            els.pauseOverlay.classList.add('hidden');
-            
-            // Start Loop
-            nextWord();
-            state.session.timerInterval = requestAnimationFrame(gameLoop);
-        }
-
-        function nextWord() {
-            if (!state.session.isActive) return;
-
-            // Check if queue empty -> reshuffle
-            if (state.session.wordsQueue.length === 0) {
-                 state.session.wordsQueue = generateQueue();
-            }
-
-            state.session.currentWord = state.session.wordsQueue.pop();
-            state.session.wordStartTime = Date.now(); // Reset word timer
-            state.session.wordsShown++;
-
-            // Reset UI for new word
-            els.wordDisplay.classList.remove('word-anim');
-            void els.wordDisplay.offsetWidth; // Trigger reflow
-            els.wordDisplay.classList.add('word-anim');
-            
-            els.wordDisplay.innerText = state.session.currentWord;
-            els.sessionProgress.innerText = `Слово ${state.session.wordsShown}`;
-            
-            // Reset Hint UI
-            els.hintText.innerText = "";
-            els.hintText.classList.add('hidden');
-            els.btnHint.classList.remove('hidden');
-            els.btnHint.disabled = false;
-            
-            playSound('switch');
-        }
-
-        function pauseGame() {
-            state.session.isPaused = true;
-            els.pauseOverlay.classList.remove('hidden');
-        }
-
-        function resumeGame() {
-            state.session.isPaused = false;
-            els.pauseOverlay.classList.add('hidden');
-        }
-
-        let lastTime = Date.now();
-
-        function gameLoop() {
-            if (!state.session.isActive) return;
-
-            const now = Date.now();
-            const delta = now - lastTime;
-            lastTime = now;
-
-            if (state.session.isPaused) {
-                // Shift timestamps forward so time stands still
-                state.session.startTime += delta;
-                state.session.wordStartTime += delta;
-                state.session.timerInterval = requestAnimationFrame(gameLoop);
-                return;
-            }
-
-            // 1. Total Time Logic
-            const totalElapsed = now - state.session.startTime;
-            if (state.settings.totalTimeMinutes > 0) {
-                const totalRemaining = state.session.totalTimeLimitMs - totalElapsed;
-                if (totalRemaining <= 0) {
-                    finishSession();
-                    return;
-                }
-                els.totalTimerDisplay.innerText = formatTime(totalRemaining);
-            } else {
-                els.totalTimerDisplay.innerText = formatTime(totalElapsed);
-            }
-
-            // 2. Word Timer Logic
-            const wordElapsed = now - state.session.wordStartTime;
-            const wordLimitMs = state.settings.timePerWord * 1000;
-            const wordRemaining = wordLimitMs - wordElapsed;
-
-            const pct = Math.max(0, (wordRemaining / wordLimitMs) * 100);
-            els.wordTimerBar.style.width = `${pct}%`;
-            els.wordTimerText.innerText = `${Math.ceil(wordRemaining / 1000)}с`;
-
-            if (wordRemaining < 5000) els.wordTimerBar.classList.add('urgent');
-            else els.wordTimerBar.classList.remove('urgent');
-
-            // 3. Auto Switch
-            if (wordRemaining <= 0) {
-                if (state.settings.autoSwitch) {
-                    nextWord();
-                } else {
-                    // In manual mode, timer stays at 0
-                    els.wordTimerBar.style.width = '0%';
-                    els.wordTimerText.innerText = '0с';
-                }
-            } 
-
-            state.session.timerInterval = requestAnimationFrame(gameLoop);
-        }
-
-        function finishSession() {
-            state.session.isActive = false;
-            cancelAnimationFrame(state.session.timerInterval);
-            playSound('end');
-
-            const now = Date.now();
-            const totalMs = now - state.session.startTime;
-
-            // Fill Result Screen
-            els.resTime.innerText = formatTime(totalMs);
-            els.resCount.innerText = state.session.wordsShown;
-            
-            const cats = {
-                'all': 'Все', 'objects': 'Предметы', 'abstract': 'Абстрактное', 
-                'characters': 'Персонажи', 'custom': 'Свои', 'ai_gen': 'ИИ Тема ✨'
-            };
-            els.resCat.innerText = cats[state.settings.category] || state.settings.category;
-            els.resWTime.innerText = `${state.settings.timePerWord} сек`;
-
-            showScreen('result');
-        }
-
-        // Helper
-        function formatTime(ms) {
-            const totalSeconds = Math.floor(ms / 1000);
-            const m = Math.floor(totalSeconds / 60);
-            const s = totalSeconds % 60;
-            return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-        }
-
-        // Run Init
-        init();
-
-    </script>
+if(window.Telegram&&Telegram.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); }
+</script>
 </body>
 </html>
