@@ -1,3 +1,661 @@
+
+Claude finished the response
+You said: Бот с упражнениями для развития мышления.
+Бот с упражнениями для развития мышления. 
+
+помоги собрать тз для кодинга например:
+Игра в ассоциации. 
+давай сначала опишем что это за упражненеи
+
+27 апр.
+Claude responded: Игра в ассоциации
+Игра в ассоциации
+Расскажи, как ты видишь это упражнение — что должно происходить, какова цель, как выглядит процесс?
+
+Или если хочешь, я предложу свой вариант описания, а ты скорректируешь.
+
+You said: Q: Как начнём?
+Q: Как начнём?
+A: Опиши свою идею
+
+27 апр.
+Claude responded: Расскажи, как ты представляешь «Игру в ассоциации» — как она работает, что делает пользователь, какова цель упражнения?
+Расскажи, как ты представляешь «Игру в ассоциации» — как она работает, что делает пользователь, какова цель упражнения?
+
+You said: Цель - развития ассоциативного мышления.
+Цель - развития ассоциативного мышления.
+Пользователь видит слово и таймер за время которого он должен называть ассоциации на это слово
+
+27 апр.
+Claude responded: Отлично, основа понятна.
+Отлично, основа понятна. Давай уточним детали чтобы потом сформировать чёткое ТЗ.
+
+You said: Q: Как пользователь вводит ассоциации?
+Q: Как пользователь вводит ассоциации?
+A: Голосом
+
+Q: Что происходит после таймера?
+A: Просто переходим к следующему слову
+
+27 апр.
+Claude responded: Хорошо!
+Хорошо! Ещё пара вопросов:
+
+You said: Q: Сколько времени на одно слово?
+Q: Сколько времени на одно слово?
+A: Настраивается пользователем
+
+Q: Сколько слов за одну сессию?
+A: общий тайминг раунда так же настраивается пользователем. может быть настройка по дефолту: сессия 2 минуты и на каждое слово 10 секунд
+
+Q: Есть ли результат / статистика после сессии?
+A: Как ты сможешь посчитать количество ассоциаций?
+
+27 апр.
+Claude responded: Хороший вопрос!
+Хороший вопрос! Давай разберёмся с этим.
+
+Голосовой ввод — это сложно для подсчёта. Есть несколько подходов:
+
+Вариант А — Распознавание речи (STT) Бот слушает микрофон, транскрибирует слова в текст и считает их автоматически. Технически сложнее, но полностью автоматически.
+
+Вариант Б — Пользователь считает сам После каждого слова бот спрашивает: «Сколько ассоциаций ты назвал?» — пользователь вводит цифру вручную. Просто, но требует честности.
+
+Вариант В — Без подсчёта Просто упражнение без статистики. Фокус на процессе, а не результате.
+
+You said: Q: Какой подход к подсчёту ассоциаций?
+Q: Какой подход к подсчёту ассоциаций?
+A: Распознавание речи (STT)
+
+27 апр.
+Claude responded: Отлично, тогда у нас полная картина.
+Отлично, тогда у нас полная картина. Вот готовое ТЗ:
+
+ТЗ: Упражнение «Игра в ассоциации»
+Цель упражнения
+Развитие ассоциативного мышления. Пользователь называет вслух как можно больше ассоциаций к слову за отведённое время.
+
+Сценарий использования
+Пользователь открывает упражнение
+Настраивает параметры сессии (или использует дефолтные)
+Нажимает «Старт»
+Видит слово + таймер обратного отсчёта
+Говорит ассоциации вслух — бот слушает и транскрибирует
+По истечении времени — автоматически появляется следующее слово
+Сессия заканчивается когда истекает общее время раунда
+Показывается итоговая статистика
+Настройки сессии
+Параметр	По умолчанию	Настраивается
+Общее время раунда	2 минуты	✅
+Время на одно слово	10 секунд	✅
+Голосовой ввод и подсчёт
+Бот использует STT (Speech-to-Text) для распознавания речи
+Каждое распознанное слово/фраза считается одной ассоциацией
+Транскрипция идёт в реальном времени (желательно показывать слова на экране по мере произнесения)
+Экран во время упражнения
+Большое слово по центру
+Таймер обратного отсчёта (для текущего слова)
+Прогресс-бар общего времени сессии
+Список распознанных ассоциаций (появляются в реальном времени)
+Экран результатов после сессии
+Общее количество ассоциаций за сессию
+Количество ассоциаций по каждому слову
+Среднее количество ассоциаций на слово
+Открытые вопросы для следующего обсуждения
+Откуда берётся банк слов? — случайная генерация, фиксированный список, категории (животные, предметы, абстракции)?
+Платформа? — веб, мобильное приложение, Telegram-бот?
+Какой STT сервис? — Whisper, Web Speech API, Yandex SpeechKit?
+Хочешь сразу разобрать открытые вопросы или переходим к следующему упражнению?
+
+You said: Откуда берётся банк слов?
+Откуда берётся банк слов? категории (животные, предметы, абстракции)
+Платформа? тг бот, с переходом на приложение которое написано кодом и хранится на гетхаб
+Какой STT сервис? я не знаю как это настроить
+
+27 апр.
+Claude responded: По платформе и словам всё ясно.
+По платформе и словам всё ясно. По STT — предложу лучший вариант для вашего случая:
+
+Рекомендация: Whisper API (OpenAI)
+
+Отлично распознаёт русский язык
+Простая интеграция
+Недорого для такого объёма (упражнения по 2 минуты)
+Работает через обычный API-запрос — легко встроить в любое приложение
+Альтернатива — Web Speech API (бесплатно, встроено в браузер), но в Telegram WebApp работает нестабильно.
+
+Обновлённое ТЗ с закрытыми вопросами:
+
+ТЗ: «Игра в ассоциации» — финальная версия
+Платформа
+Telegram Bot — точка входа, запуск упражнения
+Web App (Mini App внутри Telegram) — само упражнение, написано кодом, хостится на GitHub (GitHub Pages или через сервер)
+Банк слов
+Слова разбиты по категориям: животные, предметы, абстракции (и другие — можно расширять)
+Перед стартом пользователь выбирает категорию или режим «случайное»
+Слова подбираются случайно из выбранной категории
+Голосовой ввод
+Whisper API (OpenAI) для транскрипции
+Запись идёт пока активен таймер слова
+Аудио отправляется в Whisper → получаем текст → считаем слова
+Распознанные ассоциации отображаются на экране в реальном времени (или после таймера — зависит от реализации)
+Настройки сессии
+Время раунда: 2 мин по умолчанию (настраивается)
+Время на слово: 10 сек по умолчанию (настраивается)
+Экран упражнения
+Слово по центру
+Таймер текущего слова
+Прогресс-бар всей сессии
+Список распознанных ассоциаций
+Результаты сессии
+Всего ассоциаций
+По каждому слову
+Среднее на слово
+Готово к передаче разработчику. Хочешь оформить это в документ (md или docx) или сразу переходим к описанию следующего упражнения?
+
+You said: давай варианты по дизайну
+давай варианты по дизайну
+
+27 апр.
+Claude responded: По какому именно аспекту дизайна хочешь варианты?
+По какому именно аспекту дизайна хочешь варианты?
+
+You said: Q: Что обсуждаем?
+Q: Что обсуждаем?
+A: Визуальный стиль (цвета, атмосфера)
+
+27 апр.
+Claude responded: Покажу 3 варианта стиля прямо здесь — выберешь что ближе.
+Покажу 3 варианта стиля прямо здесь — выберешь что ближе.
+
+V
+
+Connecting to visualize...
+Три варианта — кликни на кнопку под тем, что нравится, или опиши что близко / что хочется изменить.
+
+You said: Хочу вариант 2 — светлый игровой
+Хочу вариант 2 — светлый игровой
+
+27 апр.
+Claude responded: Отлично, вариант 2 берём за основу.
+Отлично, вариант 2 берём за основу. Давай уточним детали этого стиля:
+
+You said: Q: Основной акцентный цвет?
+Q: Основной акцентный цвет?
+A: Фиолетовый (как сейчас)
+
+Q: Форма элементов (кнопки, теги, карточки)?
+A: Скруглённые, мягкие
+
+27 апр.
+Claude responded: Отлично!
+Отлично! Рисую детальный макет экрана упражнения с этим стилем.
+
+V
+
+Connecting to visualize...
+Это макет основного экрана упражнения. Что видишь:
+
+Топбар — категория + общее время сессии
+Прогресс-бар — сколько слов прошло
+Карточка слова — большое слово + круговой таймер
+Кнопка микрофона — пульсирует когда слушает
+Теги — ассоциации появляются по мере распознавания, последняя подсвечена фиолетовым
+Что хочешь изменить или добавить?
+
+You said: вроде все ок, ты сможешь собрать код?
+вроде все ок, ты сможешь собрать код?
+
+27 апр.
+Claude responded: Да, смогу!
+Да, смогу! Но сначала пара уточнений чтобы написать рабочий код, а не заготовку.
+
+You said: Q: На чём писать фронтенд?
+Q: На чём писать фронтенд?
+A: я не знаю - мне важно прсото скопировать его в гетхаб и все
+
+Q: Бэкенд / сервер есть?
+A: тоже не понимаю
+
+27 апр.
+Claude responded: Понял — тебе нужно максимально просто: скопировал на GitHub, открыл в Telegram, всё работает.
+Понял — тебе нужно максимально просто: скопировал на GitHub, открыл в Telegram, всё работает.
+
+Тогда вот оптимальный стек для твоего случая:
+
+Фронтенд — Vanilla HTML/CSS/JS (один файл index.html) — просто кидаешь на GitHub Pages, никаких сборщиков и настроек.
+
+Бэкенд — не нужен. Whisper API вызывается прямо из браузера. Единственное что нужно — API ключ OpenAI.
+
+Telegram — Telegram Mini App, открывается через кнопку в боте. Бот можно сделать через BotFather за 2 минуты без кода.
+
+Прежде чем писать код, последний вопрос:
+
+You said: Q: есть ли доступ к Whisper API?
+Q: есть ли доступ к Whisper API?
+A: Хочу без API — просто считать слова вручную
+
+27 апр.
+Claude responded: Отлично, самый простой вариант!
+Отлично, самый простой вариант! Пишу код.
+
+
+Viewed a file, created a file, read a file
+Viewed a file, created a file, read a file
+Готово! Один файл index.html — скачай и закинь на GitHub.
+
+Что внутри:
+
+3 экрана: настройки → игра → результаты
+Категории слов (животные, предметы, абстракции, всё вместе) — по 15 слов в каждой
+Настройка времени раунда (1–10 мин) и времени на слово (5–60 сек)
+Ассоциации вводятся текстом вручную (поле + Enter или кнопка)
+Круговой таймер, краснеет на последних 3 секундах
+Итоговая статистика: всего, слов, среднее, лучший результат
+Как выложить на GitHub Pages:
+
+Создай репозиторий на GitHub
+Закинь index.html в корень
+Settings → Pages → Source: main branch
+Получишь ссылку вида https://username.github.io/repo-name/
+Эту ссылку вставляешь в BotFather как Mini App URL
+Хочешь помогу с настройкой Telegram бота?
+
+
+Index
+Code · HTML 
+You said: Давай уберем подсчет слов.
+Давай уберем подсчет слов. добавим больше категории. на стартовый экран нужно написать коротко правила. и нужен звук окончания таймера и сессии
+
+27 апр.
+Claude responded: Готово!
+
+Created 2 files, viewed a file, ran a command
+Created 2 files, viewed a file, ran a command
+Готово! Вот что изменилось:
+
+Убрано — поле ввода и подсчёт ассоциаций, блок со статистикой по словам
+
+Добавлено — 8 категорий: животные, предметы, абстракции, природа, еда, эмоции, места, всё вместе (по 20 слов в каждой)
+
+Правила — короткий блок на стартовом экране с тремя пунктами
+
+Звуки — двойной тихий сигнал при смене слова, трёхтоновая нисходящая мелодия при конце сессии (работает через Web Audio API, не требует файлов)
+
+Результат — упрощён: количество слов + время тренировки + все слова сессии пилюлями
+
+
+Index
+Code · HTML 
+You said: Давай немного доработаем.
+Давай немного доработаем.
+Главный экран:
+Название
+коротко "как играть?"
+И три кнопки:
+Быстрый старт (это микс из слов, раунд три минуты на каждое слово 3 секунды чтобы придумать ассоциацию)
+Своя игра - здесь мы переходим в окно где есть выбор из категорий 
+Теория - здесь надо написать теорию про ассоциации, что это, почему только слова существительные, как тренировать и зачем
+
+В окне "Своя игра"  пользователь видит категории: Животные, Предметы, Природа, Еда, Эмоции, Места, Люди, Технологии, и все вместе)
+
+Режими игры:
+Классика - любые ассоциации. Увидел слово - называй на него как можно больше ассоциаций, пока идет таймер
+На скорость - на каждое слово 1 секунда чтобы называть ассоциацию
+Второй слой - первую ассоциацию думай про себя а вслух называй следующую ассоциацию
+Цепочка - видишь слово, называй ассоциации отталкиваясь от него, например кофта - зима - снег - вода - лужа - сапоги и так далее
+Метафора - попробуй называть слова пользуясь связкой "словно" "как" "будто" Например, снег словно пух, лифт - словно стрела
+
+И ниже настройки как у тебя - время раунда и время на слово
+
+Show more
+28 апр.
+Claude responded: Большая переработка — сделаю всё чисто.
+Большая переработка — сделаю всё чисто. Пишу.
+
+
+Ran a command, created a file, read a file
+Ran a command, created a file, read a file
+Готово! Вот что теперь в файле:
+
+Главный экран — название, правила, три кнопки: Быстрый старт / Своя игра / Теория
+
+Быстрый старт — сразу запускает: микс слов, 3 мин, 3 сек на слово
+
+Своя игра — 9 категорий (добавил Людей и Технологии), 5 режимов с описанием, настройки времени
+
+Режимы — каждый показывает свою подсказку прямо на экране во время игры, чтобы не забыть правило
+
+Теория — 4 раздела: что такое ассоциации, почему существительные, зачем тренировать, как тренировать эффективно
+
+Звуки — двойной сигнал при смене слова, трёхтоновый при конце сессии
+
+
+Index
+Code · HTML 
+You said: давай кнопку "Все вместе" сделаем на ширину двух кнопок.
+давай кнопку "Все вместе" сделаем на ширину двух кнопок. И время на слово до 1 секунды чтобы можно было настроить
+
+28 апр.
+Claude responded: Готово!
+
+Edited 2 files, viewed a file, read a file
+Edited 2 files, viewed a file, read a file
+Готово! Два изменения:
+
+«Все вместе» — теперь на всю ширину, с эмодзи в строку
+Время на слово — минимум теперь 1 секунда (был 5)
+
+Index
+Code · HTML 
+You said: Нужно добавить в игру кнопки - пауза, остановить игру и выйти в меню
+Нужно добавить в игру кнопки  - пауза, остановить игру и выйти в меню
+
+28 апр.
+Claude responded: Теперь добавляю стили и HTML для панели управления, и логику паузы/стопа/выхода в JS.
+
+Viewed 4 files
+Viewed 4 files
+Теперь добавляю стили и HTML для панели управления, и логику паузы/стопа/выхода в JS.
+
+
+Edited 3 files, ran 3 commands, viewed a file
+Edited 3 files, ran 3 commands, viewed a file
+Now add the JS logic for pause/stop/menu:
+
+
+Add pause/stop/menu JS logic
+Add pause/stop/menu JS logic
+Now patch startSess to use startSessResume (same logic, avoid duplication — actually let's keep startSess as is since it's called only once at game start):
+
+
+Ran a command, read a file
+Ran a command, read a file
+Готово! Вот что добавилось:
+
+Три кнопки под «Пропустить слово» в виде сетки:
+
+⏸ Пауза — останавливает оба таймера (слова и сессии), кнопка меняется на ▶ Играть, появляется оверлей
+⏹ Стоп — завершает игру и показывает результаты (выделена красноватым)
+🏠 Меню — выходит на главный экран без сохранения
+Оверлей паузы — размытый фон поверх игры с двумя кнопками: «Продолжить» и «Выйти в меню». При возобновлении таймеры продолжают с того места где остановились.
+
+
+Index
+Code · HTML 
+You said: давай перед началом раунда обратный отчет с 5 до 1 и слово ПОЕХАЛИ
+давай перед началом раунда обратный отчет с 5 до 1 и слово ПОЕХАЛИ
+
+28 апр.
+Claude responded: Готово!
+
+Ran 4 commands, read a file
+Ran 4 commands, read a file
+Готово! Теперь при старте игры:
+
+Появляется оверлей с обратным отсчётом 5 → 4 → 3 → 2 → 1
+Каждая цифра — с тихим бипом и анимацией «поп»
+После единицы — 🚀 ПОЕХАЛИ! с более громким звуком
+Через 0.7 сек оверлей закрывается и начинается игра
+
+Index
+Code · HTML 
+You said: давай сделаем по 50 слов в каждую категорию ок?
+давай сделаем по 50 слов в каждую категорию ок?
+
+28 апр.
+Claude responded: Готово!
+
+Ran 3 commands, viewed a file, read a file
+Ran 3 commands, viewed a file, read a file
+Готово! Все 8 категорий теперь по 50 слов — итого 400 слов, а «Все вместе» собирает их все в один пул из 400.
+
+
+Index
+Code · HTML 
+You said: Отлично!
+Отлично! Если я хочу новую игру мне стоит открыть новый чат или продолжить здесь?
+
+28 апр.
+Claude responded: Продолжай здесь!
+Продолжай здесь! У нас уже весь контекст — дизайн, ТЗ, код, все правки. Гораздо удобнее продолжать в этом чате.
+
+Если захочешь сделать новую игру с нуля (другая механика, другой дизайн) — тогда лучше новый чат, чтобы не тащить лишний контекст.
+
+Что дальше — доработки этой игры или новое упражнение для бота?
+
+You said: новое упражнение для боты в этом же дизайне
+новое упражнение для боты в этом же дизайне
+
+28 апр.
+Claude responded: Отлично, давай опишем упражнение.
+Отлично, давай опишем упражнение. Какая идея?
+
+You said: Упражнение "Описание слова"
+Упражнение "Описание слова"
+
+Суть: на экране появляется слово. Твоя задача — вслух называть как можно больше характеристик, которые отвечают на вопрос «какой?».
+Зачем: скорость речи, конкретизация, образность, снятие цензуры.
+Как играть:
+
+Нажми старт.
+На экране слово и таймер.
+Говори вслух только «какой/какая/какое/какие» — без пауз и объяснений.
+По сигналу появится следующее слово. Правило: не называй «что это» и «что делает». Только качества и признаки. Застрял? Используй: цвет, форму, материал, эмоцию или AI-подсказку. Пример (Стол): Деревянный, твёрдый, письменный... Нельзя: Стоит, мебель, за ним едят...
+28 апр.
+Claude responded: Отличное упражнение!
+Отличное упражнение! Давай уточним несколько моментов перед кодом.
+
+You said: Q: Какие категории слов использовать?
+Q: Какие категории слов использовать?
+A: Те же категории что в Ассоциациях
+
+Q: Механика таймера?
+A: Та же механика — таймер на слово + общее время
+
+Q: AI-подсказка — как реализуем?
+A: Без подсказок
+
+28 апр.
+Claude responded: Всё понятно — механика идентична Ассоциациям, только другой смысл упражнения.
+Всё понятно — механика идентична Ассоциациям, только другой смысл упражнения. Собираю ТЗ и сразу пишу код.
+
+ТЗ: «Описание слова»
+Цель — развитие образности речи, скорости подбора прилагательных, снятие речевой цензуры.
+
+Правило — только прилагательные: цвет, форма, размер, материал, эмоция, температура. Нельзя: глаголы («стоит»), существительные («мебель»).
+
+Механика — идентична Ассоциациям: таймер на слово + общее время раунда, обратный отсчёт перед стартом, те же категории, те же настройки.
+
+Отличия от Ассоциаций — другой текст подсказок на экране, в теории объясняется зачем только «какой?», пример на карточке слова.
+
+Пишу код:
+
+
+Ran 2 commands, viewed a file, created a file
+Ran 2 commands, viewed a file, created a file
+Готово! Файл description.html — отдельный от Ассоциаций, кидаешь рядом в тот же репозиторий.
+
+Что внутри:
+
+Главный экран — название, правила с примером (✅ Деревянный, твёрдый / ❌ Стоит, мебель), три кнопки
+
+На экране игры — под словом постоянно видны подсказки-чипы: цвет · форма · размер · материал · эмоция — чтобы не застревать
+
+Теория — про образное мышление, почему только «какой?», что развивает, как использовать
+
+Всё остальное — та же механика: отсчёт 5-4-3-2-1 → ПОЕХАЛИ, таймеры, пауза/стоп/меню, звуки, те же 50 слов в каждой категории
+
+
+Description
+Code · HTML 
+You said: А если сделать ненмого другой дизайн?
+А если сделать ненмого другой дизайн? более дорогого сегмента? можешь что то предложить?
+
+11:12
+Claude responded: Покажу 3 варианта премиального стиля — выбери направление.
+Покажу 3 варианта премиального стиля — выбери направление.
+
+
+
+Три направления премиального дизайна — каждое с другой философией:
+
+Noir — тёмный фон, золотые акценты, засечный шрифт. Ощущение люкс-приложения, ночного режима.
+
+Stone — тёплые бежевые тона, органика. Как дорогой блокнот или wellness-приложение.
+
+Ink — белый, чистый, крупная типографика. Editorial стиль — как дорогой журнал или Apple Notes.
+
+Нажми кнопку под понравившимся — перепишу код в выбранном стиле.
+
+You said: Мне больше нравится дизайн apple минимализм и эстетика.
+Мне больше нравится дизайн apple минимализм и эстетика. шрифты без засечек типа МОНТ, сочетание жирного и тонких.
+
+11:16
+Claude responded: Понял — Apple-минимализм, геометрический гротеск, контраст weight'ов.
+Понял — Apple-минимализм, геометрический гротеск, контраст weight'ов. Покажу как будет выглядеть перед тем как писать код.
+
+
+
+Вот как будет выглядеть — Montserrat, контраст 800 и 200 weight, чёрно-белая палитра, тонкие линии вместо карточек.
+
+Ключевые решения:
+
+Заголовок — сверхжирный с отрицательным кернингом
+Таймер — огромная цифра в тонком весе (200), как на Apple Watch
+Разделители — линии 0.5px вместо карточек с тенями
+Кнопки — чёрная основная, серая вторичная, никаких скруглений-пузырей
+Нажми «Нравится — делай код» и перепишу оба упражнения в этом стиле.
+
+You said: Первый вариант ближе!
+Первый вариант ближе! Только цвета наши оставь. Они хорошо смотрятся
+
+11:18
+Claude responded: Понял — Apple-структура и типографика из макета, но фиолетовая палитра из текущего дизайна.
+Понял — Apple-структура и типографика из макета, но фиолетовая палитра из текущего дизайна. Пишу код для обоих файлов.
+
+
+Ran 2 commands
+Ran 2 commands
+Good. Now building both files with the new design:
+
+
+Ran 2 commands, read a file
+Ran 2 commands, read a file
+Оба файла готовы — index.html (Ассоциации) и description.html (Описание слова).
+
+Что изменилось в дизайне:
+
+Montserrat вместо Nunito — геометрический, как у Apple
+Контраст весов — заголовки 900, таймер 200 (тонкий как Apple Watch), подписи 300
+Типографика вместо карточек — разделители 0.5px, никаких теней и бордеров-пузырей
+Буквенный интервал — eyebrow-лейблы с tracking 2px, заголовки с отрицательным кернингом
+Фиолетовая палитра — осталась без изменений, вписалась органично
+
+Index
+Code · HTML 
+
+Description
+Code · HTML 
+You said: Давай доработаем игру Ассоциации - мне не нравится черный цвет шрифта.
+Давай доработаем игру Ассоциации - мне не нравится черный цвет шрифта. верни как было. Название нужно в одну строчку. давай попробуем все заголовки капсом
+
+11:25
+Claude responded: Готово!
+
+Ran a command, read a file
+Ran a command, read a file
+Готово! Три изменения:
+
+Цвет — весь чёрный заменён на фиолетовый (--pd, --p, --pmut), чёрных оттенков не осталось
+Название — «Ассоциации» в одну строку
+Капс — все заголовки переведены в uppercase: название, слово в игре, настройки, результат, оверлеи
+
+Index
+Code · HTML 
+You said: Ассоциации - жирность меньше
+Ассоциации - жирность меньше
+
+фразы заглавными буквами
+Видишь слово — говори вслух любые ассоциации без остановки 
+Таймер закончился — автоматически следующее слово
+Цель — не думать, а чувствовать. Странные ассоциации — ок
+
+быстрый старт
+своя игра
+теория
+все заглавными
+
+11:30
+Claude responded: Готово!
+
+Ran a command, read a file
+Ran a command, read a file
+Готово! Что изменилось:
+
+Ассоциации — жирность с 900 до 600, стало легче
+Три фразы — все капсом, с сохранением жирного акцента на ключевых словах
+Кнопки — БЫСТРЫЙ СТАРТ / СВОЯ ИГРА / ТЕОРИЯ — все заглавными
+
+Index
+Code · HTML 
+You said: во вкладке своя игра так же все заголовки сделай заглавными буквами
+во вкладке своя игра так же все заголовки сделай заглавными буквами
+
+11:32
+Claude responded: Готово!
+
+Ran a command, read a file
+Ran a command, read a file
+Готово! Во вкладке «Своя игра» теперь всё капсом:
+
+Секции — КАТЕГОРИЯ СЛОВ / РЕЖИМ ИГРЫ / НАСТРОЙКИ
+Категории — ЖИВОТНЫЕ, ПРЕДМЕТЫ, ПРИРОДА и т.д.
+Режимы — КЛАССИКА, НА СКОРОСТЬ, ВТОРОЙ СЛОЙ, ЦЕПОЧКА, МЕТАФОРА
+Кнопка — НАЧАТЬ ИГРУ
+
+Index
+Code · HTML 
+You said: отлично!
+отлично! Давай игры "описание слова" переделаем так же
+
+11:34
+Claude responded: Готово!
+
+Ran a command, read a file
+Ran a command, read a file
+Готово! Применил всё то же самое что в Ассоциациях:
+
+Чёрный → фиолетовый везде
+Заголовок — ОПИСАНИЕ СЛОВА, вес 600
+Правила — все капсом с жирными акцентами
+Кнопки — БЫСТРЫЙ СТАРТ / СВОЯ ИГРА / ТЕОРИЯ / НАЧАТЬ ИГРУ
+Категории — ЖИВОТНЫЕ, ПРЕДМЕТЫ и т.д.
+Слово в игре — капс, как в Ассоциациях
+
+Description
+Code · HTML 
+You said: Только осталось заголово "описание слово" сделать жирным
+Только осталось заголово "описание слово" сделать жирным
+
+11:36
+Claude responded: Готово — «ОПИСАНИЕ СЛОВА» теперь font-weight 900.
+
+Ran a command, read a file
+Ran a command, read a file
+Готово — «ОПИСАНИЕ СЛОВА» теперь font-weight 900.
+
+
+Description
+Code · HTML 
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+Description · HTML
+Copy
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -5,302 +663,232 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Описание слова</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
-
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-
 :root{
-  --p:#7F77DD;
-  --pd:#3C3489;
-  --pm:#EEEDFE;
-  --pb:#d0c8f8;
-  --pmut:#AFA9EC;
-  --bg:#f0eeff;
-  --white:#fff;
-  --red:#E24B4A;
+  --p:#7F77DD;--pd:#3C3489;--pm:#EEEDFE;--pb:#d0c8f8;--pmut:#AFA9EC;
+  --bg:#f0eeff;--white:#fff;--red:#E24B4A;
+  --ink:var(--pd);--ink2:#534AB7;--ink3:#888;--ink4:#bbb;--ink5:#E8E8E8;--ink6:#F5F5F5;
 }
-
-body{
-  font-family:'Nunito',sans-serif;
-  background:var(--bg);
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:16px 16px 48px;
-  color:var(--pd);
-}
-
-.screen{display:none;width:100%;max-width:360px;flex-direction:column;gap:14px;}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 18px 56px;color:var(--pd);}
+.screen{display:none;width:100%;max-width:360px;flex-direction:column;gap:20px;}
 .screen.active{display:flex;}
-
-.card{background:var(--white);border-radius:22px;border:.5px solid var(--pb);padding:18px 20px;}
-.card-label{font-size:11px;font-weight:700;letter-spacing:.8px;color:var(--pmut);text-transform:uppercase;margin-bottom:12px;}
-.back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--pmut);cursor:pointer;padding:4px 0;}
-.back-btn:active{opacity:.6;}
-
-/* HOME */
-.home-hero{text-align:center;padding:12px 0 4px;}
-.home-hero h1{font-size:28px;font-weight:900;color:var(--pd);letter-spacing:-0.5px;}
-.home-hero p{font-size:13px;color:var(--pmut);margin-top:4px;}
-
-.how-list{display:flex;flex-direction:column;gap:8px;}
-.how-item{display:flex;gap:10px;align-items:flex-start;}
-.how-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
-.how-text{font-size:13px;font-weight:600;color:var(--pd);line-height:1.45;}
-.how-text em{color:var(--pmut);font-style:normal;font-weight:400;}
-
-.rule-block{background:var(--pm);border-radius:14px;padding:12px 14px;border-left:3px solid var(--p);}
-.rule-block .rule-title{font-size:11px;font-weight:800;color:var(--p);letter-spacing:.6px;text-transform:uppercase;margin-bottom:6px;}
-.rule-row{font-size:13px;font-weight:600;color:var(--pd);margin-bottom:4px;line-height:1.4;}
+.back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--pmut);cursor:pointer;letter-spacing:.5px;padding:0;}
+.back-btn:active{opacity:.5;}
+.home-eyebrow{font-size:10px;font-weight:600;letter-spacing:2.5px;color:var(--pmut);text-transform:uppercase;}
+.home-title{font-size:28px;font-weight:900;color:var(--pd);letter-spacing:1px;line-height:1;margin-top:6px;text-transform:uppercase;}
+.home-sub{font-size:13px;font-weight:300;color:var(--pmut);margin-top:8px;letter-spacing:.2px;}
+.divider{height:.5px;background:var(--pb);}
+.how-list{display:flex;flex-direction:column;gap:12px;}
+.how-row{display:flex;align-items:flex-start;gap:14px;}
+.how-num{font-size:10px;font-weight:700;color:var(--pmut);min-width:20px;padding-top:2px;letter-spacing:.5px;}
+.how-text{font-size:13px;font-weight:400;color:var(--pd);line-height:1.5;}
+.how-text b{font-weight:700;color:var(--pd);}
+.rule-box{background:var(--pm);border-left:2px solid var(--p);border-radius:0 12px 12px 0;padding:14px 16px;}
+.rule-box-label{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--p);text-transform:uppercase;margin-bottom:8px;}
+.rule-row{font-size:12px;font-weight:500;color:var(--pd);margin-bottom:5px;line-height:1.4;}
 .rule-row:last-child{margin-bottom:0;}
-.rule-row em{color:var(--pmut);font-style:normal;}
-
-.home-btns{display:flex;flex-direction:column;gap:10px;}
-.btn-primary{background:var(--p);color:#fff;border:none;border-radius:18px;padding:16px 20px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;width:100%;text-align:left;display:flex;align-items:center;justify-content:space-between;transition:transform .1s,opacity .1s;}
-.btn-primary:active{transform:scale(.97);opacity:.9;}
-.btn-primary .btn-sub{font-size:11px;font-weight:600;opacity:.75;margin-top:2px;}
-.btn-primary .btn-left{display:flex;flex-direction:column;}
-.btn-primary .btn-arrow{font-size:20px;opacity:.7;}
-.btn-secondary{background:var(--white);color:var(--pd);border:1.5px solid var(--pb);border-radius:18px;padding:14px 20px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;width:100%;text-align:left;display:flex;align-items:center;justify-content:space-between;transition:all .1s;}
-.btn-secondary:active{background:var(--pm);}
-.btn-secondary .btn-sub{font-size:11px;font-weight:600;color:var(--pmut);margin-top:2px;}
-.btn-secondary .btn-arrow{font-size:18px;color:var(--pmut);}
-
-/* CUSTOM */
+.rule-row em{color:var(--pmut);font-style:normal;font-weight:400;}
+.home-btns{display:flex;flex-direction:column;gap:8px;}
+.btn-main{background:var(--p);color:#fff;border:none;border-radius:14px;padding:16px 20px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:-.2px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;width:100%;transition:opacity .1s;}
+.btn-main:active{opacity:.85;}
+.btn-main .bleft{display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
+.btn-main .bsub{font-size:10px;font-weight:300;opacity:.7;letter-spacing:.3px;}
+.btn-main .barr{font-size:18px;opacity:.6;}
+.btn-ghost{background:var(--pm);color:var(--pd);border:none;border-radius:14px;padding:15px 20px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:space-between;cursor:pointer;width:100%;transition:opacity .1s;}
+.btn-ghost:active{opacity:.7;}
+.btn-ghost .bleft{display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
+.btn-ghost .bsub{font-size:10px;font-weight:300;color:var(--pmut);letter-spacing:.3px;}
+.btn-ghost .barr{font-size:16px;color:var(--pmut);}
+.section-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;margin-bottom:14px;}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.cat-btn{padding:10px 8px;border-radius:14px;border:1.5px solid var(--pb);background:var(--pm);color:var(--pd);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;}
+.cat-btn{padding:12px 8px;border-radius:12px;border:.5px solid var(--pb);background:var(--pm);color:var(--pd);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;letter-spacing:.2px;}
 .cat-btn.selected{background:var(--p);color:#fff;border-color:var(--p);}
-.cat-btn .ce{display:block;font-size:19px;margin-bottom:3px;}
-
-.setting-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.setting-row:last-child{margin-bottom:0;}
-.sname{font-size:14px;font-weight:700;}
-.sdesc{font-size:12px;color:var(--pmut);}
-.stepper{display:flex;align-items:center;gap:8px;}
-.step-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--pb);background:var(--pm);color:var(--pd);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.cat-btn .ce{display:block;font-size:18px;margin-bottom:4px;}
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:.5px solid var(--pb);}
+.setting-row:last-child{border-bottom:none;padding-bottom:0;}
+.sname{font-size:11px;font-weight:700;color:var(--pd);text-transform:uppercase;letter-spacing:.8px;}
+.sdesc{font-size:10px;font-weight:400;color:var(--pmut);margin-top:2px;letter-spacing:.2px;}
+.stepper{display:flex;align-items:center;gap:10px;}
+.step-btn{width:32px;height:32px;border-radius:50%;border:.5px solid var(--pb);background:var(--pm);color:var(--pd);font-size:18px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .step-btn:active{background:var(--p);color:#fff;border-color:var(--p);}
-.step-val{font-size:14px;font-weight:800;color:var(--pd);min-width:42px;text-align:center;}
-
-/* THEORY */
-.theory-hero{text-align:center;padding:4px 0;}
-.theory-hero .th{font-size:36px;margin-bottom:4px;}
-.theory-hero h2{font-size:20px;font-weight:800;}
-.theory-hero p{font-size:13px;color:var(--pmut);margin-top:4px;}
-.theory-section{margin-bottom:16px;}
-.theory-section:last-child{margin-bottom:0;}
-.tsec-title{font-size:13px;font-weight:800;color:var(--p);margin-bottom:8px;}
-.tsec-body{font-size:13px;font-weight:600;color:var(--pd);line-height:1.6;}
-.tsec-body em{color:var(--pmut);font-style:normal;font-weight:400;}
-.theory-tip{background:var(--pm);border-radius:14px;padding:12px 14px;margin-top:10px;font-size:12px;font-weight:600;color:var(--pd);line-height:1.5;border-left:3px solid var(--p);}
-
-/* GAME */
-.topbar{display:flex;justify-content:space-between;align-items:center;}
-.cat-badge{font-size:12px;font-weight:700;color:var(--p);background:var(--pm);padding:5px 12px;border-radius:100px;}
-.sess-time{font-size:13px;font-weight:700;color:var(--pmut);}
-.sess-time b{color:var(--p);font-weight:800;}
-.sess-time.urgent b{color:var(--red);}
-
-.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--pmut);font-weight:600;margin-bottom:6px;}
-.prog-bg{background:#ddd8f8;border-radius:100px;height:6px;overflow:hidden;}
-.prog-fill{background:var(--p);height:100%;border-radius:100px;transition:width .4s ease;}
-
-.word-card{background:var(--white);border-radius:28px;border:.5px solid var(--pb);padding:22px 20px 20px;text-align:center;}
-.word-hint{font-size:11px;font-weight:700;letter-spacing:.8px;color:var(--pmut);text-transform:uppercase;margin-bottom:8px;}
-.word-main{font-size:38px;font-weight:900;color:var(--pd);letter-spacing:-1px;line-height:1.1;margin-bottom:6px;}
-.word-question{font-size:14px;font-weight:700;color:var(--p);margin-bottom:6px;}
-.word-example{font-size:11px;color:var(--pmut);font-weight:600;margin-bottom:16px;line-height:1.4;min-height:28px;}
-
-.hints-row{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
-.hint-chip{font-size:11px;font-weight:700;color:var(--pmut);background:var(--pm);padding:4px 10px;border-radius:100px;border:.5px solid var(--pb);}
-
-.timer-ring{position:relative;width:72px;height:72px;margin:0 auto;}
-.timer-ring svg{transform:rotate(-90deg);}
-.timer-ring circle.bg{fill:none;stroke:#e0dbf8;stroke-width:5;}
-.timer-ring circle.fg{fill:none;stroke:var(--p);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .3s;}
-.timer-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--pd);}
-
-.skip-btn{background:transparent;color:var(--pmut);border:1.5px solid var(--pb);border-radius:14px;padding:10px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;transition:all .15s;}
+.step-val{font-size:13px;font-weight:700;color:var(--pd);min-width:44px;text-align:center;}
+.theory-title{font-size:26px;font-weight:600;color:var(--pd);letter-spacing:1px;line-height:1.05;text-transform:uppercase;}
+.theory-sub{font-size:13px;font-weight:300;color:var(--pmut);margin-top:6px;}
+.tsec{padding:16px 0;border-bottom:.5px solid var(--pb);}
+.tsec:last-child{border-bottom:none;}
+.tsec-label{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--p);text-transform:uppercase;margin-bottom:8px;}
+.tsec-body{font-size:13px;font-weight:400;color:var(--pd);line-height:1.65;}
+.tsec-body b{font-weight:700;color:var(--pd);}
+.theory-tip{background:var(--pm);border-left:2px solid var(--p);border-radius:0 10px 10px 0;padding:12px 14px;margin-top:10px;font-size:12px;font-weight:500;color:var(--pd);line-height:1.5;}
+.game-topbar{display:flex;justify-content:space-between;align-items:center;}
+.game-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;}
+.game-sess{font-size:12px;font-weight:300;color:var(--pmut);}
+.game-sess b{font-weight:700;color:var(--pd);}
+.game-sess.urgent b{color:var(--red);}
+.prog-meta{display:flex;justify-content:space-between;margin-bottom:7px;}
+.prog-label{font-size:10px;font-weight:500;color:var(--pmut);letter-spacing:.3px;}
+.prog-bg{height:2px;background:var(--pb);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--p);border-radius:2px;transition:width .4s ease;}
+.word-block{padding:28px 0 20px;border-top:.5px solid var(--pb);border-bottom:.5px solid var(--pb);}
+.word-eyebrow{font-size:9px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;margin-bottom:10px;}
+.word-main{font-size:48px;font-weight:900;color:var(--pd);letter-spacing:1px;line-height:.95;margin-bottom:6px;text-transform:uppercase;}
+.word-question{font-size:13px;font-weight:700;color:var(--p);letter-spacing:.2px;margin-bottom:12px;}
+.hints-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.hint-chip{font-size:10px;font-weight:600;color:var(--pmut);background:var(--pm);padding:4px 10px;border-radius:100px;letter-spacing:.3px;}
+.timer-row{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;}
+.timer-big{font-size:44px;font-weight:200;color:var(--p);letter-spacing:-2px;line-height:1;}
+.timer-unit{font-size:10px;font-weight:600;letter-spacing:1px;color:var(--pmut);text-transform:uppercase;}
+.timer-bar-bg{height:2px;background:var(--pb);border-radius:2px;overflow:hidden;}
+.timer-bar-fill{height:100%;background:var(--p);border-radius:2px;transition:width 1s linear;}
+.skip-btn{background:transparent;color:var(--pmut);border:.5px solid var(--pb);border-radius:12px;padding:12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;cursor:pointer;width:100%;letter-spacing:.3px;transition:all .15s;}
 .skip-btn:active{background:var(--pm);}
-
-.game-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-.gc-btn{padding:10px 6px;border-radius:14px;border:1.5px solid var(--pb);background:var(--pm);color:var(--pd);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .15s;}
-.gc-btn:active{opacity:.7;}
-.gc-btn .gc-icon{font-size:18px;}
-.gc-btn.pause-active{background:var(--p);color:#fff;border-color:var(--p);}
-.gc-btn.stop-btn{border-color:#f0c8c8;background:#fff0f0;color:#c0392b;}
-
-/* OVERLAYS */
-.overlay{display:none;position:fixed;inset:0;background:rgba(60,52,137,.55);backdrop-filter:blur(4px);z-index:100;align-items:center;justify-content:center;}
+.ctrl-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.ctrl-btn{padding:12px 6px;background:var(--pm);border:none;border-radius:12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;color:var(--pd);letter-spacing:.3px;cursor:pointer;text-align:center;transition:all .15s;}
+.ctrl-btn:active{opacity:.7;}
+.ctrl-btn.pause-active{background:var(--p);color:#fff;}
+.ctrl-btn.danger-btn{background:#FFF0F0;color:var(--red);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(17,17,17,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:100;align-items:center;justify-content:center;}
 .overlay.show{display:flex;}
-.overlay-box{background:var(--white);border-radius:28px;padding:32px 28px;text-align:center;max-width:280px;width:90%;}
-.overlay-box h3{font-size:22px;font-weight:900;color:var(--pd);margin-bottom:6px;}
-.overlay-box p{font-size:13px;color:var(--pmut);margin-bottom:20px;}
-.ov-btn-primary{background:var(--p);color:#fff;border:none;border-radius:16px;padding:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;width:100%;margin-bottom:8px;}
-.ov-btn-secondary{background:transparent;color:var(--pmut);border:1.5px solid var(--pb);border-radius:16px;padding:12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;width:100%;}
-
-#countdown-num{font-size:80px;font-weight:900;color:var(--pd);line-height:1;margin-bottom:8px;animation:cntpop .35s ease;}
-@keyframes cntpop{0%{transform:scale(1.4);opacity:.6;}100%{transform:scale(1);opacity:1;}}
-
-/* RESULT */
-.res-header{text-align:center;padding:8px 0;}
-.res-emoji{font-size:48px;margin-bottom:8px;}
-.res-header h2{font-size:24px;font-weight:800;}
-.res-header p{font-size:13px;color:var(--pmut);margin-top:4px;}
+.overlay-box{background:var(--white);border-radius:24px;padding:32px 28px;text-align:center;max-width:290px;width:92%;}
+.ov-eyebrow{font-size:9px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;margin-bottom:10px;}
+.ov-title{font-size:22px;font-weight:700;color:var(--pd);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase;}
+.ov-sub{font-size:12px;font-weight:300;color:var(--pmut);margin-bottom:24px;}
+.ov-btn-p{background:var(--p);color:#fff;border:none;border-radius:12px;padding:14px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-bottom:8px;}
+.ov-btn-s{background:transparent;color:var(--pmut);border:.5px solid var(--pb);border-radius:12px;padding:12px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;cursor:pointer;width:100%;}
+#countdown-num{font-size:88px;font-weight:900;color:var(--pd);line-height:1;letter-spacing:-4px;margin-bottom:6px;animation:cntpop .3s ease;}
+#countdown-label{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;}
+@keyframes cntpop{0%{transform:scale(1.3);opacity:.5;}100%{transform:scale(1);opacity:1;}}
+.res-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;}
+.res-title{font-size:30px;font-weight:600;color:var(--pd);letter-spacing:1px;margin-top:6px;text-transform:uppercase;}
+.res-sub{font-size:13px;font-weight:300;color:var(--pmut);margin-top:4px;}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.stat-card{background:var(--white);border-radius:18px;border:.5px solid var(--pb);padding:14px 16px;text-align:center;}
-.stat-num{font-size:28px;font-weight:800;}
-.stat-label{font-size:12px;color:var(--pmut);font-weight:600;margin-top:2px;}
-.words-played{display:flex;flex-wrap:wrap;gap:7px;}
-.word-pill{background:var(--pm);color:var(--pd);font-size:13px;font-weight:700;padding:6px 14px;border-radius:100px;border:.5px solid var(--pb);}
-.restart-btn{background:var(--p);color:#fff;border:none;border-radius:18px;padding:16px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;width:100%;transition:transform .1s;}
-.restart-btn:active{transform:scale(.97);}
+.stat-card{background:var(--pm);border-radius:14px;padding:16px;}
+.stat-num{font-size:36px;font-weight:800;color:var(--pd);letter-spacing:-2px;line-height:1;}
+.stat-label{font-size:10px;font-weight:500;color:var(--pmut);letter-spacing:.5px;margin-top:4px;text-transform:uppercase;}
+.words-section-label{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;margin-bottom:12px;}
+.words-played{display:flex;flex-wrap:wrap;gap:6px;}
+.word-pill{background:var(--pm);color:var(--pd);font-size:11px;font-weight:600;padding:6px 14px;border-radius:100px;letter-spacing:.2px;}
+.restart-btn{background:var(--p);color:#fff;border:none;border-radius:14px;padding:16px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;letter-spacing:.2px;transition:opacity .1s;}
+.restart-btn:active{opacity:.85;}
 </style>
 </head>
 <body>
-
-<!-- ══ HOME ══ -->
+ 
+<!-- HOME -->
 <div class="screen active" id="screen-home">
-  <div class="home-hero">
-    <h1>Описание слова 🎨</h1>
-    <p>Развитие образности и скорости речи</p>
+  <div>
+    <div class="home-eyebrow">Упражнение</div>
+    <div class="home-title">ОПИСАНИЕ СЛОВА</div>
+    <div class="home-sub">Развитие образности и скорости речи</div>
   </div>
-
-  <div class="card">
-    <div class="card-label">Как играть?</div>
-    <div class="how-list">
-      <div class="how-item"><span class="how-icon">👁️</span><div class="how-text">Видишь слово на экране</div></div>
-      <div class="how-item"><span class="how-icon">🗣️</span><div class="how-text">Говоришь вслух <em>только прилагательные</em> — «какой? какая? какое?» — без остановки</div></div>
-      <div class="how-item"><span class="how-icon">🚫</span><div class="how-text"><em>Нельзя:</em> глаголы («стоит»), существительные («мебель»), объяснения</div></div>
-      <div class="how-item"><span class="how-icon">💡</span><div class="how-text">Застрял? Думай: <em>цвет, форма, размер, материал, эмоция, температура</em></div></div>
-    </div>
-
-    <div style="margin-top:14px;">
-      <div class="rule-block">
-        <div class="rule-title">Пример — слово «Стол»</div>
-        <div class="rule-row">✅ Деревянный, твёрдый, письменный, широкий...</div>
-        <div class="rule-row">❌ <em>Стоит, мебель, за ним едят...</em></div>
-      </div>
-    </div>
+  <div class="divider"></div>
+  <div class="how-list">
+    <div class="how-row"><span class="how-num">01</span><span class="how-text">ВИДИШЬ СЛОВО — ГОВОРИШЬ ВСЛУХ <b>ТОЛЬКО ПРИЛАГАТЕЛЬНЫЕ</b></span></div>
+    <div class="how-row"><span class="how-num">02</span><span class="how-text">ОТВЕЧАЙ НА ВОПРОС <b>«КАКОЙ? КАКАЯ? КАКОЕ?»</b> — БЕЗ ОСТАНОВКИ</span></div>
+    <div class="how-row"><span class="how-num">03</span><span class="how-text"><b>НЕЛЬЗЯ:</b> ГЛАГОЛЫ («СТОИТ»), СУЩЕСТВИТЕЛЬНЫЕ («МЕБЕЛЬ»)</span></div>
+    <div class="how-row"><span class="how-num">04</span><span class="how-text">ЗАСТРЯЛ? ДУМАЙ: <b>ЦВЕТ, ФОРМА, РАЗМЕР, МАТЕРИАЛ, ЭМОЦИЯ</b></span></div>
   </div>
-
+  <div class="rule-box">
+    <div class="rule-box-label">ПРИМЕР — СЛОВО «СТОЛ»</div>
+    <div class="rule-row">✅ ДЕРЕВЯННЫЙ, ТВЁРДЫЙ, ПИСЬМЕННЫЙ, ШИРОКИЙ...</div>
+    <div class="rule-row">❌ <em>СТОИТ, МЕБЕЛЬ, ЗА НИМ ЕДЯТ...</em></div>
+  </div>
+  <div class="divider"></div>
   <div class="home-btns">
-    <button class="btn-primary" id="btn-quick">
-      <div class="btn-left">
-        <span>⚡ Быстрый старт</span>
-        <span class="btn-sub">Микс слов · 3 мин · 10 сек на слово</span>
-      </div>
-      <span class="btn-arrow">→</span>
+    <button class="btn-main" id="btn-quick">
+      <div class="bleft"><span>БЫСТРЫЙ СТАРТ</span><span class="bsub">Микс · 3 мин · 10 сек на слово</span></div>
+      <span class="barr">→</span>
     </button>
-    <button class="btn-secondary" id="btn-custom">
-      <div class="btn-left">
-        <span>🎛️ Своя игра</span>
-        <span class="btn-sub">Выбери категорию и время</span>
-      </div>
-      <span class="btn-arrow">→</span>
+    <button class="btn-ghost" id="btn-custom">
+      <div class="bleft"><span>СВОЯ ИГРА</span><span class="bsub">Категория и время</span></div>
+      <span class="barr">→</span>
     </button>
-    <button class="btn-secondary" id="btn-theory">
-      <div class="btn-left">
-        <span>📖 Теория</span>
-        <span class="btn-sub">Зачем это и как работает</span>
-      </div>
-      <span class="btn-arrow">→</span>
+    <button class="btn-ghost" id="btn-theory">
+      <div class="bleft"><span>ТЕОРИЯ</span><span class="bsub">Зачем описывать прилагательными</span></div>
+      <span class="barr">→</span>
     </button>
   </div>
 </div>
-
-<!-- ══ CUSTOM ══ -->
+ 
+<!-- CUSTOM -->
 <div class="screen" id="screen-custom">
   <button class="back-btn" id="back-custom">← Назад</button>
-
-  <div class="card">
-    <div class="card-label">Категория слов</div>
+  <div>
+    <div class="section-eyebrow">КАТЕГОРИЯ СЛОВ</div>
     <div class="cat-grid" id="cat-grid">
-      <button class="cat-btn selected" data-cat="animals"><span class="ce">🐾</span>Животные</button>
-      <button class="cat-btn" data-cat="objects"><span class="ce">🪑</span>Предметы</button>
-      <button class="cat-btn" data-cat="nature"><span class="ce">🌿</span>Природа</button>
-      <button class="cat-btn" data-cat="food"><span class="ce">🍎</span>Еда</button>
-      <button class="cat-btn" data-cat="emotions"><span class="ce">❤️</span>Эмоции</button>
-      <button class="cat-btn" data-cat="places"><span class="ce">🌍</span>Места</button>
-      <button class="cat-btn" data-cat="people"><span class="ce">🧑</span>Люди</button>
-      <button class="cat-btn" data-cat="tech"><span class="ce">💻</span>Технологии</button>
-      <button class="cat-btn" data-cat="mix" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;"><span class="ce" style="display:inline;font-size:19px;margin:0;">🎲</span>Все вместе</button>
+      <button class="cat-btn selected" data-cat="animals"><span class="ce">🐾</span>ЖИВОТНЫЕ</button>
+      <button class="cat-btn" data-cat="objects"><span class="ce">🪑</span>ПРЕДМЕТЫ</button>
+      <button class="cat-btn" data-cat="nature"><span class="ce">🌿</span>ПРИРОДА</button>
+      <button class="cat-btn" data-cat="food"><span class="ce">🍎</span>ЕДА</button>
+      <button class="cat-btn" data-cat="emotions"><span class="ce">❤️</span>ЭМОЦИИ</button>
+      <button class="cat-btn" data-cat="places"><span class="ce">🌍</span>МЕСТА</button>
+      <button class="cat-btn" data-cat="people"><span class="ce">🧑</span>ЛЮДИ</button>
+      <button class="cat-btn" data-cat="tech"><span class="ce">💻</span>ТЕХНОЛОГИИ</button>
+      <button class="cat-btn" data-cat="mix" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;"><span style="font-size:18px;">🎲</span>ВСЕ ВМЕСТЕ</button>
     </div>
   </div>
-
-  <div class="card">
-    <div class="card-label">Настройки</div>
+  <div class="divider"></div>
+  <div>
+    <div class="section-eyebrow">НАСТРОЙКИ</div>
     <div class="setting-row">
       <div><div class="sname">Время раунда</div><div class="sdesc">Общая длина сессии</div></div>
-      <div class="stepper">
-        <button class="step-btn" id="round-minus">−</button>
-        <span class="step-val" id="round-val">2 мин</span>
-        <button class="step-btn" id="round-plus">+</button>
-      </div>
+      <div class="stepper"><button class="step-btn" id="round-minus">−</button><span class="step-val" id="round-val">2 мин</span><button class="step-btn" id="round-plus">+</button></div>
     </div>
     <div class="setting-row">
       <div><div class="sname">Время на слово</div><div class="sdesc">Секунд на одно слово</div></div>
-      <div class="stepper">
-        <button class="step-btn" id="word-minus">−</button>
-        <span class="step-val" id="word-val">10 сек</span>
-        <button class="step-btn" id="word-plus">+</button>
-      </div>
+      <div class="stepper"><button class="step-btn" id="word-minus">−</button><span class="step-val" id="word-val">10 сек</span><button class="step-btn" id="word-plus">+</button></div>
     </div>
   </div>
-
-  <button class="btn-primary" id="custom-start-btn">
-    <div class="btn-left"><span>Начать игру</span></div>
-    <span class="btn-arrow">→</span>
+  <button class="btn-main" id="custom-start-btn">
+    <div class="bleft"><span>НАЧАТЬ ИГРУ</span></div><span class="barr">→</span>
   </button>
 </div>
-
-<!-- ══ THEORY ══ -->
+ 
+<!-- THEORY -->
 <div class="screen" id="screen-theory">
   <button class="back-btn" id="back-theory">← Назад</button>
-  <div class="theory-hero">
-    <div class="th">🎨</div>
-    <h2>Теория описания</h2>
-    <p>Зачем описывать слова прилагательными</p>
+  <div>
+    <div class="home-eyebrow">Теория</div>
+    <div class="theory-title">Описание через признаки</div>
+    <div class="theory-sub">Зачем называть только прилагательные</div>
   </div>
-  <div class="card">
-    <div class="theory-section">
-      <div class="tsec-title">💡 В чём суть упражнения?</div>
-      <div class="tsec-body">Наш мозг привык мыслить <em>существительными и глаголами</em> — быстро и функционально. Прилагательные — это «медленный» слой, образный. Упражнение тренирует <em>переключаться на чувственное восприятие</em> и описывать мир через качества, а не через функции.</div>
+  <div class="divider"></div>
+  <div>
+    <div class="tsec">
+      <div class="tsec-label">В чём суть?</div>
+      <div class="tsec-body">Мозг привык мыслить <b>существительными и глаголами</b> — быстро и функционально. Прилагательные — «медленный» слой, образный. Упражнение тренирует <b>переключаться на чувственное восприятие.</b></div>
     </div>
-    <div class="theory-section">
-      <div class="tsec-title">🔤 Почему только «какой?»</div>
-      <div class="tsec-body">Прилагательное заставляет мозг <em>наблюдать, а не объяснять.</em> Когда ты говоришь «деревянный» вместо «это стол» — ты переходишь от категории к образу. Это основа метафорического мышления и <em>точности речи.</em></div>
-      <div class="theory-tip">📌 Попробуй: «Лимон» — скажи 5 прилагательных за 5 секунд. Жёлтый, кислый, овальный, яркий, свежий. Это и есть упражнение.</div>
+    <div class="tsec">
+      <div class="tsec-label">Почему только «какой?»</div>
+      <div class="tsec-body">Прилагательное заставляет мозг <b>наблюдать, а не объяснять.</b> Когда ты говоришь «деревянный» вместо «это стол» — ты переходишь от категории к образу. Это основа <b>метафорического мышления.</b>
+      <div class="theory-tip">📌 «Лимон» — скажи 5 прилагательных за 5 секунд: жёлтый, кислый, овальный, яркий, свежий.</div></div>
     </div>
-    <div class="theory-section">
-      <div class="tsec-title">🏋️ Что это развивает?</div>
-      <div class="tsec-body"><em>Скорость речи</em> — меньше пауз и «эмм». <em>Образность</em> — богатый язык описаний. <em>Снятие цензуры</em> — ты перестаёшь думать «правильно ли», просто называешь. <em>Словарный запас</em> — активный, не пассивный.</div>
+    <div class="tsec">
+      <div class="tsec-label">Что развивает?</div>
+      <div class="tsec-body"><b>Скорость речи</b> — меньше пауз и «эмм». <b>Образность</b> — богатый язык описаний. <b>Словарный запас</b> — активный, не пассивный. <b>Снятие цензуры</b> — ты перестаёшь думать «правильно ли».</div>
     </div>
-    <div class="theory-section">
-      <div class="tsec-title">📈 Как использовать эффективно?</div>
-      <div class="tsec-body">Начни с категории <em>«Предметы»</em> — их проще всего описывать физически. Затем переходи к <em>«Эмоциям»</em> — это сложнее, потому что требует метафор. Занимайся <em>3–5 минут в день</em>, и через неделю заметишь разницу в речи.</div>
-      <div class="theory-tip">🎯 Цель: 8–12 прилагательных за 10 секунд без повторов. Это признак развитого образного мышления.</div>
+    <div class="tsec">
+      <div class="tsec-label">Как использовать?</div>
+      <div class="tsec-body">Начни с <b>«Предметов»</b> — их проще описывать физически. Затем переходи к <b>«Эмоциям»</b> — это сложнее, требует метафор. 3–5 минут в день.
+      <div class="theory-tip">🎯 Цель: 8–12 прилагательных за 10 секунд без повторов.</div></div>
     </div>
   </div>
 </div>
-
-<!-- ══ GAME ══ -->
+ 
+<!-- GAME -->
 <div class="screen" id="screen-game">
-  <div class="topbar">
-    <span class="cat-badge" id="g-cat">Животные</span>
-    <span class="sess-time" id="g-sess-wrap">Осталось <b id="g-sess-time">2:00</b></span>
+  <div class="game-topbar">
+    <span class="game-eyebrow" id="g-cat">Животные</span>
+    <span class="game-sess" id="g-sess-wrap">Осталось <b id="g-sess-time">2:00</b></span>
   </div>
   <div>
-    <div class="prog-meta">
-      <span id="g-word-num">Слово 1</span>
-      <span id="g-prog-pct">0%</span>
-    </div>
+    <div class="prog-meta"><span class="prog-label" id="g-word-num">Слово 1</span><span class="prog-label" id="g-prog-pct">0%</span></div>
     <div class="prog-bg"><div class="prog-fill" id="g-prog-bar" style="width:0%"></div></div>
   </div>
-
-  <div class="word-card">
-    <div class="word-hint">Говори вслух — только прилагательные</div>
+  <div class="word-block">
+    <div class="word-eyebrow">Называй прилагательные вслух</div>
     <div class="word-main" id="g-word">—</div>
     <div class="word-question">Какой? Какая? Какое?</div>
     <div class="hints-row">
@@ -310,71 +898,58 @@ body{
       <span class="hint-chip">материал</span>
       <span class="hint-chip">эмоция</span>
     </div>
-    <div class="timer-ring">
-      <svg width="72" height="72" viewBox="0 0 72 72">
-        <circle class="bg" cx="36" cy="36" r="30"/>
-        <circle class="fg" id="g-circle" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="0"/>
-      </svg>
-      <div class="timer-text" id="g-timer">10</div>
+    <div class="timer-row">
+      <span class="timer-big" id="g-timer">10</span>
+      <span class="timer-unit">сек</span>
     </div>
+    <div class="timer-bar-bg"><div class="timer-bar-fill" id="g-timer-bar" style="width:100%"></div></div>
   </div>
-
   <button class="skip-btn" id="g-skip">Пропустить слово →</button>
-
-  <div class="game-controls">
-    <button class="gc-btn" id="g-pause">
-      <span class="gc-icon" id="g-pause-icon">⏸️</span>
-      <span id="g-pause-label">Пауза</span>
-    </button>
-    <button class="gc-btn stop-btn" id="g-stop">
-      <span class="gc-icon">⏹️</span>
-      <span>Стоп</span>
-    </button>
-    <button class="gc-btn" id="g-menu">
-      <span class="gc-icon">🏠</span>
-      <span>Меню</span>
-    </button>
+  <div class="ctrl-row">
+    <button class="ctrl-btn" id="g-pause"><span id="g-pause-icon">⏸</span> <span id="g-pause-label">Пауза</span></button>
+    <button class="ctrl-btn danger-btn" id="g-stop">⏹ Стоп</button>
+    <button class="ctrl-btn" id="g-menu">🏠 Меню</button>
   </div>
 </div>
-
-<!-- ══ RESULT ══ -->
+ 
+<!-- RESULT -->
 <div class="screen" id="screen-result">
-  <div class="res-header">
-    <div class="res-emoji">🎨</div>
-    <h2>Раунд завершён!</h2>
-    <p id="r-sub">Образность прокачана</p>
+  <div>
+    <div class="res-eyebrow">Раунд завершён</div>
+    <div class="res-title" id="r-title">Отлично!</div>
+    <div class="res-sub" id="r-sub">Образность прокачана</div>
   </div>
   <div class="stats-grid">
-    <div class="stat-card"><div class="stat-num" id="r-words">0</div><div class="stat-label">Слов разобрано</div></div>
-    <div class="stat-card"><div class="stat-num" id="r-time">0</div><div class="stat-label">Минут тренировки</div></div>
+    <div class="stat-card"><div class="stat-num" id="r-words">0</div><div class="stat-label">Слов</div></div>
+    <div class="stat-card"><div class="stat-num" id="r-time">0</div><div class="stat-label">Минут</div></div>
   </div>
-  <div class="card">
-    <div class="card-label">Слова этой сессии</div>
+  <div>
+    <div class="words-section-label">Слова сессии</div>
     <div class="words-played" id="r-list"></div>
   </div>
   <button class="restart-btn" id="r-restart">Играть ещё раз →</button>
 </div>
-
-<!-- PAUSE OVERLAY -->
+ 
+<!-- PAUSE -->
 <div class="overlay" id="pause-overlay">
   <div class="overlay-box">
-    <h3>⏸ Пауза</h3>
-    <p>Игра приостановлена</p>
-    <button class="ov-btn-primary" id="pause-resume">▶ Продолжить</button>
-    <button class="ov-btn-secondary" id="pause-menu">← Выйти в меню</button>
+    <div class="ov-eyebrow">Игра</div>
+    <div class="ov-title">Пауза</div>
+    <div class="ov-sub">Таймеры остановлены</div>
+    <button class="ov-btn-p" id="pause-resume">Продолжить →</button>
+    <button class="ov-btn-s" id="pause-menu">← Выйти в меню</button>
   </div>
 </div>
-
-<!-- COUNTDOWN OVERLAY -->
+ 
+<!-- COUNTDOWN -->
 <div class="overlay" id="countdown-overlay">
-  <div class="overlay-box" style="padding:40px 28px;">
+  <div class="overlay-box" style="padding:44px 28px;">
     <div id="countdown-num">5</div>
-    <div id="countdown-label" style="font-size:18px;font-weight:700;color:var(--pmut);">Приготовься</div>
+    <div id="countdown-label">Приготовься</div>
   </div>
 </div>
-
+ 
 <script>
-// ══ WORDS ══
 const WORDS = {
   animals:  ['Медведь','Орёл','Дельфин','Волк','Лиса','Слон','Тигр','Кролик','Лошадь','Пингвин','Жираф','Крокодил','Обезьяна','Олень','Сова','Кот','Собака','Змея','Черепаха','Попугай','Лев','Тюлень','Бобёр','Зебра','Носорог','Гепард','Верблюд','Страус','Павлин','Акула','Осьминог','Бабочка','Пчела','Муравей','Ворона','Лось','Белка','Ёж','Барсук','Хомяк','Горилла','Кенгуру','Коала','Ягуар','Фламинго','Аист','Стрекоза','Улитка','Краб','Леопард'],
   objects:  ['Зеркало','Ключ','Лампа','Часы','Книга','Стол','Телефон','Окно','Замок','Шляпа','Ложка','Компас','Верёвка','Свеча','Рюкзак','Нож','Монета','Зонт','Очки','Камень','Молоток','Гвоздь','Игла','Ткань','Бутылка','Тарелка','Кружка','Конверт','Марка','Фонарь','Корзина','Щётка','Расчёска','Линейка','Ножницы','Скрепка','Кнопка','Пуговица','Лента','Цепочка','Браслет','Кольцо','Сумка','Перчатка','Шарф','Пояс','Флаг','Печать','Штамп','Ключница'],
@@ -386,91 +961,71 @@ const WORDS = {
   tech:     ['Экран','Робот','Сеть','Код','Батарея','Антенна','Процессор','Алгоритм','Дрон','Чип','Спутник','Интерфейс','Сигнал','Камера','Сервер','Кабель','Сканер','Принтер','Маршрутизатор','Архив','База данных','Браузер','Облако','Протокол','Шифрование','Уязвимость','Обновление','Прошивка','Консоль','Терминал','Пиксель','Байт','Гигабайт','Частота','Задержка','Компилятор','Отладчик','Фреймворк','Библиотека','Токен','Блокчейн','Транзакция','Виртуальность','Симуляция','Голограмма','Нейросеть','Датчик','Микрофон','Искусственный интеллект','Смарт-контракт'],
   mix: []
 };
-WORDS.mix = Object.keys(WORDS).filter(k=>k!=='mix').flatMap(k=>WORDS[k]);
-
-const CAT_NAMES = {
-  animals:'🐾 Животные', objects:'🪑 Предметы', nature:'🌿 Природа',
-  food:'🍎 Еда', emotions:'❤️ Эмоции', places:'🌍 Места',
-  people:'🧑 Люди', tech:'💻 Технологии', mix:'🎲 Все вместе'
-};
-
-// ══ AUDIO ══
+ 
+const CAT_NAMES={animals:'Животные',objects:'Предметы',nature:'Природа',food:'Еда',emotions:'Эмоции',places:'Места',people:'Люди',tech:'Технологии',mix:'Все вместе'};
+const CAT_EMOJI={animals:'🐾 ',objects:'🪑 ',nature:'🌿 ',food:'🍎 ',emotions:'❤️ ',places:'🌍 ',people:'🧑 ',tech:'💻 ',mix:'🎲 '};
+const TITLES=['Отлично!','Прекрасно!','Образно!','Так держать!'];
+const SUBS=['Речь стала богаче 🎨','Образность прокачана','Прилагательных стало больше','Продолжай в том же духе'];
+ 
 let actx;
-function ac(){ if(!actx) actx=new(window.AudioContext||window.webkitAudioContext)(); return actx; }
-function beep(f,d,v=.32){ try{ const c=ac(),o=c.createOscillator(),g=c.createGain(); o.connect(g);g.connect(c.destination); o.frequency.value=f; g.gain.setValueAtTime(v,c.currentTime); g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d); o.start();o.stop(c.currentTime+d); }catch(e){} }
-const sndWord=()=>{ beep(440,.1,.28); setTimeout(()=>beep(330,.15,.22),130); };
-const sndSess=()=>{ beep(660,.18,.38); setTimeout(()=>beep(528,.18,.32),220); setTimeout(()=>beep(396,.4,.28),440); };
-document.addEventListener('click',()=>{ try{ac();}catch(e){} },{once:true});
-
-// ══ STATE ══
-let cfg = { cat:'animals', roundMin:2, wordSec:10 };
-let gs = {};
-let sT, wT;
-
-// ══ NAV ══
-document.getElementById('btn-quick').addEventListener('click',()=>{
-  cfg = { cat:'mix', roundMin:3, wordSec:10 };
-  startGame();
-});
+function ac(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx;}
+function beep(f,d,v=.3){try{const c=ac(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);o.start();o.stop(c.currentTime+d);}catch(e){}}
+const sndWord=()=>{beep(440,.1,.25);setTimeout(()=>beep(330,.14,.2),130);};
+const sndSess=()=>{beep(660,.18,.35);setTimeout(()=>beep(528,.18,.3),220);setTimeout(()=>beep(396,.4,.25),440);};
+document.addEventListener('click',()=>{try{ac();}catch(e){}},{once:true});
+ 
+let cfg={cat:'animals',roundMin:2,wordSec:10};
+let gs={};
+let sT,wT;
+ 
+document.getElementById('btn-quick').addEventListener('click',()=>{cfg={cat:'mix',roundMin:3,wordSec:10};startGame();});
 document.getElementById('btn-custom').addEventListener('click',()=>showScreen('custom'));
 document.getElementById('btn-theory').addEventListener('click',()=>showScreen('theory'));
 document.getElementById('back-custom').addEventListener('click',()=>showScreen('home'));
 document.getElementById('back-theory').addEventListener('click',()=>showScreen('home'));
 document.getElementById('r-restart').addEventListener('click',()=>showScreen('home'));
-
-// ══ CUSTOM ══
+ 
 document.querySelectorAll('.cat-btn').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('selected'));
-  b.classList.add('selected'); cfg.cat=b.dataset.cat;
+  b.classList.add('selected');cfg.cat=b.dataset.cat;
 }));
-
+ 
 function stepper(mi,pi,vi,key,min,max,unit){
   const u=()=>document.getElementById(vi).textContent=cfg[key]+unit;
-  document.getElementById(mi).addEventListener('click',()=>{ if(cfg[key]>min){cfg[key]--;u();} });
-  document.getElementById(pi).addEventListener('click',()=>{ if(cfg[key]<max){cfg[key]++;u();} });
+  document.getElementById(mi).addEventListener('click',()=>{if(cfg[key]>min){cfg[key]--;u();}});
+  document.getElementById(pi).addEventListener('click',()=>{if(cfg[key]<max){cfg[key]++;u();}});
 }
 stepper('round-minus','round-plus','round-val','roundMin',1,10,' мин');
 stepper('word-minus','word-plus','word-val','wordSec',1,60,' сек');
 document.getElementById('custom-start-btn').addEventListener('click',startGame);
-
-// ══ GAME ══
-function shuffle(a){ return [...a].sort(()=>Math.random()-.5); }
-
+ 
+function shuffle(a){return [...a].sort(()=>Math.random()-.5);}
+ 
 function startGame(){
-  clearInterval(sT); clearInterval(wT);
-  gs={ words:shuffle(WORDS[cfg.cat]), idx:0, sessLeft:cfg.roundMin*60, sessTotal:cfg.roundMin*60, played:[], paused:false, wLeft:cfg.wordSec };
-  document.getElementById('g-cat').textContent = CAT_NAMES[cfg.cat];
+  clearInterval(sT);clearInterval(wT);
+  gs={words:shuffle(WORDS[cfg.cat]),idx:0,sessLeft:cfg.roundMin*60,sessTotal:cfg.roundMin*60,played:[],paused:false,wLeft:cfg.wordSec};
+  document.getElementById('g-cat').textContent=CAT_EMOJI[cfg.cat]+(CAT_NAMES[cfg.cat]||'').toUpperCase();
   document.getElementById('g-sess-wrap').classList.remove('urgent');
   showScreen('game');
   startCountdown();
 }
-
+ 
 function startCountdown(){
   const ov=document.getElementById('countdown-overlay');
-  const numEl=document.getElementById('countdown-num');
-  const lblEl=document.getElementById('countdown-label');
+  const nEl=document.getElementById('countdown-num');
+  const lEl=document.getElementById('countdown-label');
   ov.classList.add('show');
-  let n=5;
-  numEl.textContent=n; lblEl.textContent='Приготовься';
-  beep(440,.08,.25);
+  let n=5;nEl.textContent=n;lEl.textContent='Приготовься';beep(440,.08,.22);
   const tick=setInterval(()=>{
     n--;
-    if(n>0){
-      numEl.textContent=n;
-      numEl.style.animation='none'; numEl.offsetHeight; numEl.style.animation='';
-      beep(440,.08,.25);
-    } else {
-      clearInterval(tick);
-      numEl.textContent='🚀'; numEl.style.animation='none'; numEl.offsetHeight; numEl.style.animation='';
-      lblEl.textContent='ПОЕХАЛИ!';
-      beep(660,.25,.4);
-      setTimeout(()=>{ ov.classList.remove('show'); loadWord(); startSess(); },700);
-    }
+    if(n>0){nEl.textContent=n;nEl.style.animation='none';nEl.offsetHeight;nEl.style.animation='';beep(440,.08,.22);}
+    else{clearInterval(tick);nEl.textContent='→';nEl.style.animation='none';nEl.offsetHeight;nEl.style.animation='';lEl.textContent='ПОЕХАЛИ';beep(660,.25,.38);
+      setTimeout(()=>{ov.classList.remove('show');loadWord();startSess();},700);}
   },1000);
 }
-
+ 
 function loadWord(){
-  if(gs.idx>=gs.words.length){ endGame(); return; }
+  if(gs.idx>=gs.words.length){endGame();return;}
   document.getElementById('g-word').textContent=gs.words[gs.idx];
   const pct=Math.round(gs.idx/gs.words.length*100);
   document.getElementById('g-word-num').textContent='Слово '+(gs.idx+1);
@@ -478,104 +1033,65 @@ function loadWord(){
   document.getElementById('g-prog-bar').style.width=pct+'%';
   startWord();
 }
-
-const CIRC=188.5;
+ 
 function startWord(){
-  clearInterval(wT);
-  gs.wLeft=cfg.wordSec;
-  updRing();
-  wT=setInterval(()=>{ gs.wLeft--; updRing(); if(gs.wLeft<=0){ sndWord(); nextWord(); } },1000);
+  clearInterval(wT);gs.wLeft=cfg.wordSec;updTimer();
+  wT=setInterval(()=>{gs.wLeft--;updTimer();if(gs.wLeft<=0){sndWord();nextWord();}},1000);
 }
-
-function updRing(){
-  const t=gs.wLeft,max=cfg.wordSec;
-  const c=document.getElementById('g-circle');
-  c.style.strokeDashoffset=CIRC*(1-t/max);
-  c.style.stroke=t<=3?'#E24B4A':'#7F77DD';
-  document.getElementById('g-timer').textContent=t;
+ 
+function updTimer(){
+  const t=gs.wLeft,max=cfg.wordSec,pct=(t/max*100)+'%';
+  document.getElementById('g-timer').textContent=t<10?'0'+t:t;
+  document.getElementById('g-timer-bar').style.width=pct;
+  document.getElementById('g-timer-bar').style.background=t<=3?'var(--red)":'var(--p)';
 }
-
+ 
 function startSess(){
   sT=setInterval(()=>{
     gs.sessLeft--;
     const m=Math.floor(gs.sessLeft/60),s=gs.sessLeft%60;
     document.getElementById('g-sess-time').textContent=m+':'+(s<10?'0':'')+s;
-    if(gs.sessLeft<=30) document.getElementById('g-sess-wrap').classList.add('urgent');
-    if(gs.sessLeft<=0){ sndSess(); endGame(); }
+    if(gs.sessLeft<=30)document.getElementById('g-sess-wrap').classList.add('urgent');
+    if(gs.sessLeft<=0){sndSess();endGame();}
   },1000);
 }
-
-function nextWord(){
-  clearInterval(wT);
-  gs.played.push(gs.words[gs.idx]);
-  gs.idx++;
-  loadWord();
-}
-
-document.getElementById('g-skip').addEventListener('click',()=>{ if(gs.paused)return; clearInterval(wT); gs.idx++; loadWord(); });
-
-// ── PAUSE / STOP / MENU ──
-let pauseWordLeft=0;
-
+ 
+function nextWord(){clearInterval(wT);gs.played.push(gs.words[gs.idx]);gs.idx++;loadWord();}
+document.getElementById('g-skip').addEventListener('click',()=>{if(gs.paused)return;clearInterval(wT);gs.idx++;loadWord();});
+ 
+let pauseWL=0;
 function setPaused(v){
   gs.paused=v;
-  const btn=document.getElementById('g-pause');
-  const icon=document.getElementById('g-pause-icon');
-  const lbl=document.getElementById('g-pause-label');
-  if(v){
-    clearInterval(wT); clearInterval(sT);
-    pauseWordLeft=gs.wLeft;
-    btn.classList.add('pause-active');
-    icon.textContent='▶️'; lbl.textContent='Играть';
-    document.getElementById('pause-overlay').classList.add('show');
-  } else {
-    document.getElementById('pause-overlay').classList.remove('show');
-    btn.classList.remove('pause-active');
-    icon.textContent='⏸️'; lbl.textContent='Пауза';
-    gs.wLeft=pauseWordLeft;
-    updRing();
-    wT=setInterval(()=>{ gs.wLeft--; updRing(); if(gs.wLeft<=0){ sndWord(); nextWord(); } },1000);
-    sT=setInterval(()=>{
-      gs.sessLeft--;
-      const m=Math.floor(gs.sessLeft/60),s=gs.sessLeft%60;
-      document.getElementById('g-sess-time').textContent=m+':'+(s<10?'0':'')+s;
-      if(gs.sessLeft<=30) document.getElementById('g-sess-wrap').classList.add('urgent');
-      if(gs.sessLeft<=0){ sndSess(); endGame(); }
-    },1000);
-  }
+  const icon=document.getElementById('g-pause-icon'),lbl=document.getElementById('g-pause-label'),btn=document.getElementById('g-pause');
+  if(v){clearInterval(wT);clearInterval(sT);pauseWL=gs.wLeft;btn.classList.add('pause-active');icon.textContent='▶';lbl.textContent='Играть';document.getElementById('pause-overlay').classList.add('show');}
+  else{document.getElementById('pause-overlay').classList.remove('show');btn.classList.remove('pause-active');icon.textContent='⏸';lbl.textContent='Пауза';gs.wLeft=pauseWL;updTimer();
+    wT=setInterval(()=>{gs.wLeft--;updTimer();if(gs.wLeft<=0){sndWord();nextWord();}},1000);
+    sT=setInterval(()=>{gs.sessLeft--;const m=Math.floor(gs.sessLeft/60),s=gs.sessLeft%60;document.getElementById('g-sess-time').textContent=m+':'+(s<10?'0':'')+s;if(gs.sessLeft<=30)document.getElementById('g-sess-wrap').classList.add('urgent');if(gs.sessLeft<=0){sndSess();endGame();}},1000);}
 }
-
 document.getElementById('g-pause').addEventListener('click',()=>setPaused(!gs.paused));
 document.getElementById('pause-resume').addEventListener('click',()=>setPaused(false));
-document.getElementById('pause-menu').addEventListener('click',()=>{ clearInterval(wT);clearInterval(sT); document.getElementById('pause-overlay').classList.remove('show'); showScreen('home'); });
-document.getElementById('g-stop').addEventListener('click',()=>{ clearInterval(wT);clearInterval(sT); document.getElementById('pause-overlay').classList.remove('show'); endGame(); });
-document.getElementById('g-menu').addEventListener('click',()=>{ clearInterval(wT);clearInterval(sT); document.getElementById('pause-overlay').classList.remove('show'); showScreen('home'); });
-
-function endGame(){ clearInterval(sT);clearInterval(wT); showResult(); }
-
-// ══ RESULT ══
+document.getElementById('pause-menu').addEventListener('click',()=>{clearInterval(wT);clearInterval(sT);document.getElementById('pause-overlay').classList.remove('show');showScreen('home');});
+document.getElementById('g-stop').addEventListener('click',()=>{clearInterval(wT);clearInterval(sT);endGame();});
+document.getElementById('g-menu').addEventListener('click',()=>{clearInterval(wT);clearInterval(sT);showScreen('home');});
+ 
+function endGame(){clearInterval(sT);clearInterval(wT);showResult();}
+ 
 function showResult(){
   document.getElementById('r-words').textContent=gs.played.length;
   document.getElementById('r-time').textContent=Math.round(gs.sessTotal/60);
-  const subs=['Образность прокачана 🎨','Речь стала богаче!','Прилагательных стало больше 🌟','Продолжай в том же духе!'];
-  document.getElementById('r-sub').textContent=subs[Math.floor(Math.random()*subs.length)];
-  const list=document.getElementById('r-list');
-  list.innerHTML='';
-  if(!gs.played.length){
-    list.innerHTML='<span style="font-size:13px;color:var(--pmut)">Попробуй ещё раз!</span>';
-  } else {
-    gs.played.forEach(w=>{ const e=document.createElement('span'); e.className='word-pill'; e.textContent=w; list.appendChild(e); });
-  }
+  document.getElementById('r-title').textContent=TITLES[Math.floor(Math.random()*TITLES.length)];
+  document.getElementById('r-sub').textContent=SUBS[Math.floor(Math.random()*SUBS.length)];
+  const list=document.getElementById('r-list');list.innerHTML='';
+  gs.played.forEach(w=>{const e=document.createElement('span');e.className='word-pill';e.textContent=w;list.appendChild(e);});
   showScreen('result');
 }
-
+ 
 function showScreen(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+n).classList.add('active');
   window.scrollTo(0,0);
 }
-
-if(window.Telegram&&Telegram.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); }
+if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
 </script>
 </body>
 </html>
