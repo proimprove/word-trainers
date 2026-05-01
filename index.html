@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ассоциации</title>
+<title>Описание слова</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -16,25 +16,22 @@
 body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 18px 56px;color:var(--pd);}
 .screen{display:none;width:100%;max-width:360px;flex-direction:column;gap:20px;}
 .screen.active{display:flex;}
-
-/* NAV */
 .back-btn{display:flex;align-items:center;gap:6px;background:none;border:none;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--pmut);cursor:pointer;letter-spacing:.5px;padding:0;}
 .back-btn:active{opacity:.5;}
-
-/* HOME */
 .home-eyebrow{font-size:10px;font-weight:600;letter-spacing:2.5px;color:var(--pmut);text-transform:uppercase;}
-.home-title{font-size:42px;font-weight:900;color:var(--pd);letter-spacing:-2.5px;line-height:.95;margin-top:6px;}
+.home-title{font-size:28px;font-weight:900;color:var(--pd);letter-spacing:1px;line-height:1;margin-top:6px;text-transform:uppercase;}
 .home-sub{font-size:13px;font-weight:300;color:var(--pmut);margin-top:8px;letter-spacing:.2px;}
-
 .divider{height:.5px;background:var(--pb);}
-.divider-p{height:.5px;background:var(--pb);}
-
 .how-list{display:flex;flex-direction:column;gap:12px;}
 .how-row{display:flex;align-items:flex-start;gap:14px;}
 .how-num{font-size:10px;font-weight:700;color:var(--pmut);min-width:20px;padding-top:2px;letter-spacing:.5px;}
-.how-text{font-size:11px;font-weight:500;color:var(--pd);line-height:1.6;letter-spacing:.3px;}
+.how-text{font-size:13px;font-weight:400;color:var(--pd);line-height:1.5;}
 .how-text b{font-weight:700;color:var(--pd);}
-
+.rule-box{background:var(--pm);border-left:2px solid var(--p);border-radius:0 12px 12px 0;padding:14px 16px;}
+.rule-box-label{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--p);text-transform:uppercase;margin-bottom:8px;}
+.rule-row{font-size:12px;font-weight:500;color:var(--pd);margin-bottom:5px;line-height:1.4;}
+.rule-row:last-child{margin-bottom:0;}
+.rule-row em{color:var(--pmut);font-style:normal;font-weight:400;}
 .home-btns{display:flex;flex-direction:column;gap:8px;}
 .btn-main{background:var(--p);color:#fff;border:none;border-radius:14px;padding:16px 20px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;letter-spacing:-.2px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;width:100%;transition:opacity .1s;}
 .btn-main:active{opacity:.85;}
@@ -46,32 +43,20 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
 .btn-ghost .bleft{display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
 .btn-ghost .bsub{font-size:10px;font-weight:300;color:var(--pmut);letter-spacing:.3px;}
 .btn-ghost .barr{font-size:16px;color:var(--pmut);}
-
-/* CUSTOM */
 .section-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;margin-bottom:14px;}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .cat-btn{padding:12px 8px;border-radius:12px;border:.5px solid var(--pb);background:var(--pm);color:var(--pd);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;letter-spacing:.2px;}
 .cat-btn.selected{background:var(--p);color:#fff;border-color:var(--p);}
 .cat-btn .ce{display:block;font-size:18px;margin-bottom:4px;}
-
-.mode-list{display:flex;flex-direction:column;gap:8px;}
-.mode-btn{padding:14px 16px;border-radius:12px;border:.5px solid var(--pb);background:var(--pm);color:var(--pd);font-family:'Montserrat',sans-serif;cursor:pointer;transition:all .15s;text-align:left;display:flex;align-items:flex-start;gap:12px;}
-.mode-btn.selected{background:var(--p);color:#fff;border-color:var(--p);}
-.mode-btn .me{font-size:18px;flex-shrink:0;margin-top:1px;}
-.mode-btn .mtitle{font-size:12px;font-weight:700;letter-spacing:.2px;}
-.mode-btn .mdesc{font-size:10px;font-weight:400;opacity:.65;margin-top:3px;line-height:1.4;}
-
 .setting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:.5px solid var(--pb);}
 .setting-row:last-child{border-bottom:none;padding-bottom:0;}
-.sname{font-size:13px;font-weight:600;color:var(--pd);}
+.sname{font-size:11px;font-weight:700;color:var(--pd);text-transform:uppercase;letter-spacing:.8px;}
 .sdesc{font-size:10px;font-weight:400;color:var(--pmut);margin-top:2px;letter-spacing:.2px;}
 .stepper{display:flex;align-items:center;gap:10px;}
 .step-btn{width:32px;height:32px;border-radius:50%;border:.5px solid var(--pb);background:var(--pm);color:var(--pd);font-size:18px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
 .step-btn:active{background:var(--p);color:#fff;border-color:var(--p);}
 .step-val{font-size:13px;font-weight:700;color:var(--pd);min-width:44px;text-align:center;}
-
-/* THEORY */
-.theory-title{font-size:32px;font-weight:900;color:var(--pd);letter-spacing:-1.5px;line-height:1;}
+.theory-title{font-size:26px;font-weight:600;color:var(--pd);letter-spacing:1px;line-height:1.05;text-transform:uppercase;}
 .theory-sub{font-size:13px;font-weight:300;color:var(--pmut);margin-top:6px;}
 .tsec{padding:16px 0;border-bottom:.5px solid var(--pb);}
 .tsec:last-child{border-bottom:none;}
@@ -79,58 +64,46 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
 .tsec-body{font-size:13px;font-weight:400;color:var(--pd);line-height:1.65;}
 .tsec-body b{font-weight:700;color:var(--pd);}
 .theory-tip{background:var(--pm);border-left:2px solid var(--p);border-radius:0 10px 10px 0;padding:12px 14px;margin-top:10px;font-size:12px;font-weight:500;color:var(--pd);line-height:1.5;}
-
-/* GAME */
-.game-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;}
 .game-topbar{display:flex;justify-content:space-between;align-items:center;}
+.game-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;}
 .game-sess{font-size:12px;font-weight:300;color:var(--pmut);}
 .game-sess b{font-weight:700;color:var(--pd);}
 .game-sess.urgent b{color:var(--red);}
-
 .prog-meta{display:flex;justify-content:space-between;margin-bottom:7px;}
 .prog-label{font-size:10px;font-weight:500;color:var(--pmut);letter-spacing:.3px;}
 .prog-bg{height:2px;background:var(--pb);border-radius:2px;overflow:hidden;}
 .prog-fill{height:100%;background:var(--p);border-radius:2px;transition:width .4s ease;}
-
-.mode-tag{font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--pmut);text-transform:uppercase;text-align:center;}
-
-.word-block{padding:28px 0 24px;border-top:.5px solid var(--pb);border-bottom:.5px solid var(--pb);}
+.word-block{padding:28px 0 20px;border-top:.5px solid var(--pb);border-bottom:.5px solid var(--pb);}
 .word-eyebrow{font-size:9px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;margin-bottom:10px;}
-.word-main{font-size:52px;font-weight:900;color:var(--pd);letter-spacing:-3px;line-height:.92;margin-bottom:16px;}
-.mode-prompt{font-size:11px;font-weight:400;color:var(--pmut);margin-bottom:18px;line-height:1.4;}
+.word-main{font-size:48px;font-weight:900;color:var(--pd);letter-spacing:1px;line-height:.95;margin-bottom:6px;text-transform:uppercase;}
+.word-question{font-size:13px;font-weight:700;color:var(--p);letter-spacing:.2px;margin-bottom:12px;}
+.hints-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.hint-chip{font-size:10px;font-weight:600;color:var(--pmut);background:var(--pm);padding:4px 10px;border-radius:100px;letter-spacing:.3px;}
 .timer-row{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;}
 .timer-big{font-size:44px;font-weight:200;color:var(--p);letter-spacing:-2px;line-height:1;}
 .timer-unit{font-size:10px;font-weight:600;letter-spacing:1px;color:var(--pmut);text-transform:uppercase;}
 .timer-bar-bg{height:2px;background:var(--pb);border-radius:2px;overflow:hidden;}
 .timer-bar-fill{height:100%;background:var(--p);border-radius:2px;transition:width 1s linear;}
-
 .skip-btn{background:transparent;color:var(--pmut);border:.5px solid var(--pb);border-radius:12px;padding:12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;cursor:pointer;width:100%;letter-spacing:.3px;transition:all .15s;}
 .skip-btn:active{background:var(--pm);}
-
 .ctrl-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
 .ctrl-btn{padding:12px 6px;background:var(--pm);border:none;border-radius:12px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;color:var(--pd);letter-spacing:.3px;cursor:pointer;text-align:center;transition:all .15s;}
 .ctrl-btn:active{opacity:.7;}
 .ctrl-btn.pause-active{background:var(--p);color:#fff;}
 .ctrl-btn.danger-btn{background:#FFF0F0;color:var(--red);}
-
-/* OVERLAYS */
 .overlay{display:none;position:fixed;inset:0;background:rgba(17,17,17,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:100;align-items:center;justify-content:center;}
 .overlay.show{display:flex;}
 .overlay-box{background:var(--white);border-radius:24px;padding:32px 28px;text-align:center;max-width:290px;width:92%;}
 .ov-eyebrow{font-size:9px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;margin-bottom:10px;}
-.ov-title{font-size:26px;font-weight:800;color:var(--pd);letter-spacing:-1px;margin-bottom:6px;}
+.ov-title{font-size:22px;font-weight:700;color:var(--pd);letter-spacing:1px;margin-bottom:6px;text-transform:uppercase;}
 .ov-sub{font-size:12px;font-weight:300;color:var(--pmut);margin-bottom:24px;}
 .ov-btn-p{background:var(--p);color:#fff;border:none;border-radius:12px;padding:14px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;cursor:pointer;width:100%;margin-bottom:8px;}
 .ov-btn-s{background:transparent;color:var(--pmut);border:.5px solid var(--pb);border-radius:12px;padding:12px;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;cursor:pointer;width:100%;}
-
-#countdown-num{font-size:88px;font-weight:900;color:var(--pd);line-height:1;letter-spacing:-4px;margin-bottom:6px;}
+#countdown-num{font-size:88px;font-weight:900;color:var(--pd);line-height:1;letter-spacing:-4px;margin-bottom:6px;animation:cntpop .3s ease;}
 #countdown-label{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;}
 @keyframes cntpop{0%{transform:scale(1.3);opacity:.5;}100%{transform:scale(1);opacity:1;}}
-#countdown-num{animation:cntpop .3s ease;}
-
-/* RESULT */
 .res-eyebrow{font-size:10px;font-weight:600;letter-spacing:2px;color:var(--pmut);text-transform:uppercase;}
-.res-title{font-size:36px;font-weight:900;color:var(--pd);letter-spacing:-2px;margin-top:6px;}
+.res-title{font-size:30px;font-weight:600;color:var(--pd);letter-spacing:1px;margin-top:6px;text-transform:uppercase;}
 .res-sub{font-size:13px;font-weight:300;color:var(--pmut);margin-top:4px;}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .stat-card{background:var(--pm);border-radius:14px;padding:16px;}
@@ -154,31 +127,33 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
 <div class="screen active" id="screen-home">
   <div>
     <div class="home-eyebrow">Упражнение</div>
-    <div class="home-title">Ассоциации</div>
-    <div class="home-sub">Тренировка ассоциативного мышления</div>
+    <div class="home-title">ОПИСАНИЕ СЛОВА</div>
+    <div class="home-sub">Развитие образности и скорости речи</div>
   </div>
-
   <div class="divider"></div>
-
   <div class="how-list">
-    <div class="how-row"><span class="how-num">01</span><span class="how-text">ВИДИШЬ СЛОВО — <b>ГОВОРИ ВСЛУХ ЛЮБЫЕ АССОЦИАЦИИ</b> БЕЗ ОСТАНОВКИ</span></div>
-    <div class="how-row"><span class="how-num">02</span><span class="how-text">ТАЙМЕР ЗАКОНЧИЛСЯ — <b>АВТОМАТИЧЕСКИ СЛЕДУЮЩЕЕ СЛОВО</b></span></div>
-    <div class="how-row"><span class="how-num">03</span><span class="how-text">ЦЕЛЬ — <b>НЕ ДУМАТЬ, А ЧУВСТВОВАТЬ.</b> СТРАННЫЕ АССОЦИАЦИИ — ОК</span></div>
+    <div class="how-row"><span class="how-num">01</span><span class="how-text">ВИДИШЬ СЛОВО — ГОВОРИШЬ ВСЛУХ <b>ТОЛЬКО ПРИЛАГАТЕЛЬНЫЕ</b></span></div>
+    <div class="how-row"><span class="how-num">02</span><span class="how-text">ОТВЕЧАЙ НА ВОПРОС <b>«КАКОЙ? КАКАЯ? КАКОЕ?»</b> — БЕЗ ОСТАНОВКИ</span></div>
+    <div class="how-row"><span class="how-num">03</span><span class="how-text"><b>НЕЛЬЗЯ:</b> ГЛАГОЛЫ («СТОИТ»), СУЩЕСТВИТЕЛЬНЫЕ («МЕБЕЛЬ»)</span></div>
+    <div class="how-row"><span class="how-num">04</span><span class="how-text">ЗАСТРЯЛ? ДУМАЙ: <b>ЦВЕТ, ФОРМА, РАЗМЕР, МАТЕРИАЛ, ЭМОЦИЯ</b></span></div>
   </div>
-
+  <div class="rule-box">
+    <div class="rule-box-label">ПРИМЕР — СЛОВО «СТОЛ»</div>
+    <div class="rule-row">✅ ДЕРЕВЯННЫЙ, ТВЁРДЫЙ, ПИСЬМЕННЫЙ, ШИРОКИЙ...</div>
+    <div class="rule-row">❌ <em>СТОИТ, МЕБЕЛЬ, ЗА НИМ ЕДЯТ...</em></div>
+  </div>
   <div class="divider"></div>
-
   <div class="home-btns">
     <button class="btn-main" id="btn-quick">
-      <div class="bleft"><span>БЫСТРЫЙ СТАРТ</span><span class="bsub">Микс · 3 мин · 3 сек на слово</span></div>
+      <div class="bleft"><span>БЫСТРЫЙ СТАРТ</span><span class="bsub">Микс · 3 мин · 10 сек на слово</span></div>
       <span class="barr">→</span>
     </button>
     <button class="btn-ghost" id="btn-custom">
-      <div class="bleft"><span>СВОЯ ИГРА</span><span class="bsub">Категория, режим, время</span></div>
+      <div class="bleft"><span>СВОЯ ИГРА</span><span class="bsub">Категория и время</span></div>
       <span class="barr">→</span>
     </button>
     <button class="btn-ghost" id="btn-theory">
-      <div class="bleft"><span>ТЕОРИЯ</span><span class="bsub">Как работает мозг</span></div>
+      <div class="bleft"><span>ТЕОРИЯ</span><span class="bsub">Зачем описывать прилагательными</span></div>
       <span class="barr">→</span>
     </button>
   </div>
@@ -187,7 +162,6 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
 <!-- CUSTOM -->
 <div class="screen" id="screen-custom">
   <button class="back-btn" id="back-custom">← Назад</button>
-
   <div>
     <div class="section-eyebrow">КАТЕГОРИЯ СЛОВ</div>
     <div class="cat-grid" id="cat-grid">
@@ -202,22 +176,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
       <button class="cat-btn" data-cat="mix" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;"><span style="font-size:18px;">🎲</span>ВСЕ ВМЕСТЕ</button>
     </div>
   </div>
-
   <div class="divider"></div>
-
-  <div>
-    <div class="section-eyebrow">РЕЖИМ ИГРЫ</div>
-    <div class="mode-list" id="mode-list">
-      <button class="mode-btn selected" data-mode="classic"><span class="me">🎯</span><div><div class="mtitle">КЛАССИКА</div><div class="mdesc">Называй всё что приходит в голову</div></div></button>
-      <button class="mode-btn" data-mode="speed"><span class="me">⚡</span><div><div class="mtitle">НА СКОРОСТЬ</div><div class="mdesc">Одна секунда — одна ассоциация</div></div></button>
-      <button class="mode-btn" data-mode="second"><span class="me">🧩</span><div><div class="mtitle">ВТОРОЙ СЛОЙ</div><div class="mdesc">Первую — про себя, вслух — следующую</div></div></button>
-      <button class="mode-btn" data-mode="chain"><span class="me">🔗</span><div><div class="mtitle">ЦЕПОЧКА</div><div class="mdesc">Каждое слово — от предыдущей ассоциации</div></div></button>
-      <button class="mode-btn" data-mode="metaphor"><span class="me">🌀</span><div><div class="mtitle">МЕТАФОРА</div><div class="mdesc">«Словно...», «как...», «будто...»</div></div></button>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
   <div>
     <div class="section-eyebrow">НАСТРОЙКИ</div>
     <div class="setting-row">
@@ -229,7 +188,6 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
       <div class="stepper"><button class="step-btn" id="word-minus">−</button><span class="step-val" id="word-val">10 сек</span><button class="step-btn" id="word-plus">+</button></div>
     </div>
   </div>
-
   <button class="btn-main" id="custom-start-btn">
     <div class="bleft"><span>НАЧАТЬ ИГРУ</span></div><span class="barr">→</span>
   </button>
@@ -240,28 +198,28 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
   <button class="back-btn" id="back-theory">← Назад</button>
   <div>
     <div class="home-eyebrow">Теория</div>
-    <div class="theory-title">Ассоциативное мышление</div>
-    <div class="theory-sub">Как это работает и зачем тренировать</div>
+    <div class="theory-title">Описание через признаки</div>
+    <div class="theory-sub">Зачем называть только прилагательные</div>
   </div>
   <div class="divider"></div>
   <div>
     <div class="tsec">
-      <div class="tsec-label">Что такое ассоциации?</div>
-      <div class="tsec-body">Ассоциация — это <b>связь между двумя понятиями в памяти.</b> Мозг хранит информацию сетями: каждое слово связано с десятками других. Когда ты слышишь «яблоко» и думаешь «осень» — это ассоциация.</div>
+      <div class="tsec-label">В чём суть?</div>
+      <div class="tsec-body">Мозг привык мыслить <b>существительными и глаголами</b> — быстро и функционально. Прилагательные — «медленный» слой, образный. Упражнение тренирует <b>переключаться на чувственное восприятие.</b></div>
     </div>
     <div class="tsec">
-      <div class="tsec-label">Почему только существительные?</div>
-      <div class="tsec-body">Существительные — объекты и явления, у которых есть форма, цвет, звук, запах, история. Они вызывают богатые образы. <b>Существительное — это якорь для мозга.</b>
-      <div class="theory-tip">📌 Попробуй: «Бежать» — ты всё равно представишь существительное — человека, дорогу, животное.</div></div>
+      <div class="tsec-label">Почему только «какой?»</div>
+      <div class="tsec-body">Прилагательное заставляет мозг <b>наблюдать, а не объяснять.</b> Когда ты говоришь «деревянный» вместо «это стол» — ты переходишь от категории к образу. Это основа <b>метафорического мышления.</b>
+      <div class="theory-tip">📌 «Лимон» — скажи 5 прилагательных за 5 секунд: жёлтый, кислый, овальный, яркий, свежий.</div></div>
     </div>
     <div class="tsec">
-      <div class="tsec-label">Зачем тренировать?</div>
-      <div class="tsec-body">Чем больше связей в голове — тем быстрее мозг находит нужное слово, метафору, решение. <b>Это тренируется как мышца.</b> Связано с креативностью, скоростью речи и памятью.</div>
+      <div class="tsec-label">Что развивает?</div>
+      <div class="tsec-body"><b>Скорость речи</b> — меньше пауз и «эмм». <b>Образность</b> — богатый язык описаний. <b>Словарный запас</b> — активный, не пассивный. <b>Снятие цензуры</b> — ты перестаёшь думать «правильно ли».</div>
     </div>
     <div class="tsec">
-      <div class="tsec-label">Как тренировать?</div>
-      <div class="tsec-body"><b>Регулярность важнее длительности.</b> 3–5 минут каждый день лучше, чем час раз в неделю. Начни с Классики. Когда станет легко — переходи к Цепочке или Второму слою.
-      <div class="theory-tip">🎯 Цель: 7–10 ассоциаций за 10 секунд без пауз.</div></div>
+      <div class="tsec-label">Как использовать?</div>
+      <div class="tsec-body">Начни с <b>«Предметов»</b> — их проще описывать физически. Затем переходи к <b>«Эмоциям»</b> — это сложнее, требует метафор. 3–5 минут в день.
+      <div class="theory-tip">🎯 Цель: 8–12 прилагательных за 10 секунд без повторов.</div></div>
     </div>
   </div>
 </div>
@@ -276,11 +234,17 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
     <div class="prog-meta"><span class="prog-label" id="g-word-num">Слово 1</span><span class="prog-label" id="g-prog-pct">0%</span></div>
     <div class="prog-bg"><div class="prog-fill" id="g-prog-bar" style="width:0%"></div></div>
   </div>
-  <div class="mode-tag" id="g-mode-tag">Классика</div>
   <div class="word-block">
-    <div class="word-eyebrow">Называй ассоциации вслух</div>
+    <div class="word-eyebrow">Называй прилагательные вслух</div>
     <div class="word-main" id="g-word">—</div>
-    <div class="mode-prompt" id="g-mode-prompt"></div>
+    <div class="word-question">Какой? Какая? Какое?</div>
+    <div class="hints-row">
+      <span class="hint-chip">цвет</span>
+      <span class="hint-chip">форма</span>
+      <span class="hint-chip">размер</span>
+      <span class="hint-chip">материал</span>
+      <span class="hint-chip">эмоция</span>
+    </div>
     <div class="timer-row">
       <span class="timer-big" id="g-timer">10</span>
       <span class="timer-unit">сек</span>
@@ -300,7 +264,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
   <div>
     <div class="res-eyebrow">Раунд завершён</div>
     <div class="res-title" id="r-title">Отлично!</div>
-    <div class="res-sub" id="r-sub">Мозг разогрет</div>
+    <div class="res-sub" id="r-sub">Образность прокачана</div>
   </div>
   <div class="stats-grid">
     <div class="stat-card"><div class="stat-num" id="r-words">0</div><div class="stat-label">Слов</div></div>
@@ -313,7 +277,7 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
   <button class="restart-btn" id="r-restart">Играть ещё раз →</button>
 </div>
 
-<!-- PAUSE OVERLAY -->
+<!-- PAUSE -->
 <div class="overlay" id="pause-overlay">
   <div class="overlay-box">
     <div class="ov-eyebrow">Игра</div>
@@ -335,23 +299,21 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
 <script>
 const WORDS = {
   animals:  ['Медведь','Орёл','Дельфин','Волк','Лиса','Слон','Тигр','Кролик','Лошадь','Пингвин','Жираф','Крокодил','Обезьяна','Олень','Сова','Кот','Собака','Змея','Черепаха','Попугай','Лев','Тюлень','Бобёр','Зебра','Носорог','Гепард','Верблюд','Страус','Павлин','Акула','Осьминог','Бабочка','Пчела','Муравей','Ворона','Лось','Белка','Ёж','Барсук','Хомяк','Горилла','Кенгуру','Коала','Ягуар','Фламинго','Аист','Стрекоза','Улитка','Краб','Леопард'],
-  objects:  ['Зеркало','Ключ','Лампа','Часы','Книга','Стол','Телефон','Окно','Замок','Шляпа','Ложка','Компас','Верёвка','Свеча','Рюкзак','Нож','Монета','Зонт','Очки','Камень','Молоток','Гвоздь','Игла','Ткань','Бутылка','Тарелка','Кружка','Ключница','Конверт','Марка','Фонарь','Корзина','Щётка','Расчёска','Линейка','Ножницы','Скрепка','Кнопка','Пуговица','Лента','Цепочка','Браслет','Кольцо','Сумка','Перчатка','Шарф','Пояс','Флаг','Печать','Штамп'],
+  objects:  ['Зеркало','Ключ','Лампа','Часы','Книга','Стол','Телефон','Окно','Замок','Шляпа','Ложка','Компас','Верёвка','Свеча','Рюкзак','Нож','Монета','Зонт','Очки','Камень','Молоток','Гвоздь','Игла','Ткань','Бутылка','Тарелка','Кружка','Конверт','Марка','Фонарь','Корзина','Щётка','Расчёска','Линейка','Ножницы','Скрепка','Кнопка','Пуговица','Лента','Цепочка','Браслет','Кольцо','Сумка','Перчатка','Шарф','Пояс','Флаг','Печать','Штамп','Ключница'],
   nature:   ['Гора','Река','Лес','Океан','Пустыня','Вулкан','Ледник','Болото','Водопад','Туман','Гроза','Радуга','Закат','Скала','Облако','Снег','Ветер','Луна','Степь','Рассвет','Пещера','Остров','Полуостров','Хребет','Долина','Каньон','Тундра','Тайга','Коралл','Прибой','Молния','Иней','Роса','Сугроб','Лавина','Поток','Дюна','Гейзер','Трясина','Утёс','Мох','Папоротник','Сосна','Дуб','Берёза','Клён','Ива','Поляна','Овраг','Родник'],
   food:     ['Яблоко','Хлеб','Мёд','Лимон','Кофе','Суп','Сыр','Торт','Рис','Чеснок','Шоколад','Арбуз','Гриб','Молоко','Перец','Клубника','Орех','Масло','Соль','Мороженое','Груша','Слива','Вишня','Банан','Ананас','Манго','Тыква','Морковь','Свёкла','Капуста','Огурец','Помидор','Картофель','Лук','Шпинат','Укроп','Петрушка','Имбирь','Корица','Ваниль','Пицца','Паста','Суши','Бургер','Блин','Пирог','Варенье','Компот','Чай','Квас'],
-  emotions: ['Радость','Грусть','Злость','Удивление','Страх','Стыд','Гордость','Зависть','Нежность','Тревога','Скука','Восторг','Обида','Вина','Любопытство','Ностальгия','Досада','Счастье','Покой','Восхищение','Растерянность','Отчаяние','Надежда','Вдохновение','Раздражение','Смущение','Благодарность','Ревность','Отвращение','Сострадание','Одиночество','Эйфория','Апатия','Нежность','Бодрость','Разочарование','Умиление','Азарт','Возбуждение','Облегчение','Меланхолия','Уверенность','Сомнение','Ликование','Смирение','Презрение','Влюблённость','Тоска','Беспокойство','Спокойствие'],
-  places:   ['Библиотека','Рынок','Маяк','Тюрьма','Монастырь','Аэропорт','Пляж','Завод','Больница','Замок','Цирк','Кладбище','Стадион','Школа','Ферма','Порт','Шахта','Кафе','Музей','Лаборатория','Мечеть','Собор','Синагога','Храм','Дворец','Крепость','Башня','Рудник','Верфь','Причал','Склад','Рынок','Теплица','Арена','Галерея','Архив','Обсерватория','Планетарий','Зоопарк','Ботанический сад','Парк','Площадь','Переулок','Мост','Тоннель','Вокзал','Метро','Маршрут','Перекрёсток','Бухта'],
-  people:   ['Учитель','Врач','Ребёнок','Старик','Художник','Солдат','Судья','Монах','Актёр','Странник','Вождь','Учёный','Поэт','Повар','Шут','Охотник','Торговец','Пилот','Сыщик','Мать','Отец','Брат','Сестра','Бабушка','Дед','Сосед','Друг','Враг','Незнакомец','Ребёнок','Подросток','Юноша','Девушка','Старец','Вдова','Сирота','Близнецы','Близкий','Знакомый','Коллега','Начальник','Подчинённый','Лидер','Изгой','Герой','Злодей','Мудрец','Безумец','Странник','Отшельник'],
-  tech:     ['Экран','Робот','Сеть','Код','Батарея','Антенна','Процессор','Алгоритм','Дрон','Чип','Спутник','Интерфейс','Сигнал','Камера','Сервер','Кабель','Сканер','Принтер','Маршрутизатор','Архив','Искусственный интеллект','База данных','Браузер','Облако','Протокол','Шифрование','Уязвимость','Обновление','Прошивка','Консоль','Терминал','Пиксель','Байт','Гигабайт','Частота','Задержка','Компилятор','Отладчик','Фреймворк','Библиотека','Токен','Блокчейн','Транзакция','Смарт-контракт','Виртуальность','Симуляция','Голограмма','Нейросеть','Датчик','Микрофон'],
-  mix:      []
+  emotions: ['Радость','Грусть','Злость','Удивление','Страх','Стыд','Гордость','Зависть','Нежность','Тревога','Скука','Восторг','Обида','Вина','Любопытство','Ностальгия','Досада','Счастье','Покой','Восхищение','Растерянность','Отчаяние','Надежда','Вдохновение','Раздражение','Смущение','Благодарность','Ревность','Отвращение','Сострадание','Одиночество','Эйфория','Апатия','Бодрость','Разочарование','Умиление','Азарт','Облегчение','Меланхолия','Уверенность','Сомнение','Ликование','Смирение','Презрение','Влюблённость','Тоска','Беспокойство','Спокойствие','Возбуждение','Ликование'],
+  places:   ['Библиотека','Рынок','Маяк','Тюрьма','Монастырь','Аэропорт','Пляж','Завод','Больница','Замок','Цирк','Кладбище','Стадион','Школа','Ферма','Порт','Шахта','Кафе','Музей','Лаборатория','Мечеть','Собор','Синагога','Храм','Дворец','Крепость','Башня','Рудник','Верфь','Причал','Склад','Теплица','Арена','Галерея','Архив','Обсерватория','Планетарий','Зоопарк','Ботанический сад','Парк','Площадь','Переулок','Мост','Тоннель','Вокзал','Метро','Перекрёсток','Бухта','Маршрут','Причал'],
+  people:   ['Учитель','Врач','Ребёнок','Старик','Художник','Солдат','Судья','Монах','Актёр','Странник','Вождь','Учёный','Поэт','Повар','Шут','Охотник','Торговец','Пилот','Сыщик','Мать','Отец','Брат','Сестра','Бабушка','Дед','Сосед','Друг','Враг','Незнакомец','Подросток','Юноша','Девушка','Старец','Вдова','Сирота','Близнецы','Коллега','Начальник','Подчинённый','Лидер','Изгой','Герой','Злодей','Мудрец','Безумец','Отшельник','Знакомый','Ребёнок','Близкий','Странник'],
+  tech:     ['Экран','Робот','Сеть','Код','Батарея','Антенна','Процессор','Алгоритм','Дрон','Чип','Спутник','Интерфейс','Сигнал','Камера','Сервер','Кабель','Сканер','Принтер','Маршрутизатор','Архив','База данных','Браузер','Облако','Протокол','Шифрование','Уязвимость','Обновление','Прошивка','Консоль','Терминал','Пиксель','Байт','Гигабайт','Частота','Задержка','Компилятор','Отладчик','Фреймворк','Библиотека','Токен','Блокчейн','Транзакция','Виртуальность','Симуляция','Голограмма','Нейросеть','Датчик','Микрофон','Искусственный интеллект','Смарт-контракт'],
+  mix: []
 };
 WORDS.mix = Object.keys(WORDS).filter(k=>k!=='mix').flatMap(k=>WORDS[k]);
 
 const CAT_NAMES={animals:'Животные',objects:'Предметы',nature:'Природа',food:'Еда',emotions:'Эмоции',places:'Места',people:'Люди',tech:'Технологии',mix:'Все вместе'};
 const CAT_EMOJI={animals:'🐾 ',objects:'🪑 ',nature:'🌿 ',food:'🍎 ',emotions:'❤️ ',places:'🌍 ',people:'🧑 ',tech:'💻 ',mix:'🎲 '};
-const MODE_NAMES={classic:'Классика',speed:'На скорость',second:'Второй слой',chain:'Цепочка',metaphor:'Метафора'};
-const MODE_PROMPTS={classic:'Любые ассоциации без остановки',speed:'Одна секунда — одна ассоциация',second:'Первую — про себя, вслух — следующую',chain:'Каждое слово — от предыдущей ассоциации',metaphor:'«Словно...», «как...», «будто...»'};
-const TITLES=['Отлично!','Прекрасно!','Огонь!','Так держать!'];
-const SUBS=['Мозг разогрет 🔥','Ассоциации льются рекой','Мышление прокачано','Продолжай в том же духе'];
+const TITLES=['Отлично!','Прекрасно!','Образно!','Так держать!'];
+const SUBS=['Речь стала богаче 🎨','Образность прокачана','Прилагательных стало больше','Продолжай в том же духе'];
 
 let actx;
 let soundOn = true;
@@ -361,11 +323,11 @@ const sndWord=()=>{beep(440,.1,.25);setTimeout(()=>beep(330,.14,.2),130);};
 const sndSess=()=>{beep(660,.18,.35);setTimeout(()=>beep(528,.18,.3),220);setTimeout(()=>beep(396,.4,.25),440);};
 document.addEventListener('click',()=>{try{ac();}catch(e){}},{once:true});
 
-let cfg={cat:'animals',mode:'classic',roundMin:2,wordSec:10};
+let cfg={cat:'animals',roundMin:2,wordSec:10};
 let gs={};
 let sT,wT;
 
-document.getElementById('btn-quick').addEventListener('click',()=>{cfg={cat:'mix',mode:'classic',roundMin:3,wordSec:3};startGame();});
+document.getElementById('btn-quick').addEventListener('click',()=>{cfg={cat:'mix',roundMin:3,wordSec:10};startGame();});
 document.getElementById('btn-custom').addEventListener('click',()=>showScreen('custom'));
 document.getElementById('btn-theory').addEventListener('click',()=>showScreen('theory'));
 document.getElementById('back-custom').addEventListener('click',()=>showScreen('home'));
@@ -375,10 +337,6 @@ document.getElementById('r-restart').addEventListener('click',()=>showScreen('ho
 document.querySelectorAll('.cat-btn').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('selected'));
   b.classList.add('selected');cfg.cat=b.dataset.cat;
-}));
-document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.mode-btn').forEach(x=>x.classList.remove('selected'));
-  b.classList.add('selected');cfg.mode=b.dataset.mode;
 }));
 
 function stepper(mi,pi,vi,key,min,max,unit){
@@ -396,8 +354,6 @@ function startGame(){
   clearInterval(sT);clearInterval(wT);
   gs={words:shuffle(WORDS[cfg.cat]),idx:0,sessLeft:cfg.roundMin*60,sessTotal:cfg.roundMin*60,played:[],paused:false,wLeft:cfg.wordSec};
   document.getElementById('g-cat').textContent=CAT_EMOJI[cfg.cat]+(CAT_NAMES[cfg.cat]||'').toUpperCase();
-  document.getElementById('g-mode-tag').textContent=MODE_NAMES[cfg.mode];
-  document.getElementById('g-mode-prompt').textContent=MODE_PROMPTS[cfg.mode];
   document.getElementById('g-sess-wrap').classList.remove('urgent');
   showScreen('game');
   startCountdown();
@@ -427,7 +383,6 @@ function loadWord(){
   startWord();
 }
 
-const CIRC=188.5;
 function startWord(){
   clearInterval(wT);gs.wLeft=cfg.wordSec;
   const bar=document.getElementById('g-timer-bar');
@@ -443,7 +398,7 @@ function updTimer(){
   const t=gs.wLeft,max=cfg.wordSec,pct=(t/max*100)+'%';
   document.getElementById('g-timer').textContent=t<10?'0'+t:t;
   document.getElementById('g-timer-bar').style.width=pct;
-  document.getElementById('g-timer-bar').style.background=t<=3?'var(--red)':'var(--p)';
+  document.document.getElementById('g-timer-bar').style.background=t<=3?'var(--red)':'var(--p)';
 }
 
 function startSess(){
