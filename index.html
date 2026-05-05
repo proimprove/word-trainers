@@ -173,6 +173,10 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);min-height:100vh;d
       <button class="cat-btn" data-cat="places"><span class="ce">🌍</span>МЕСТА</button>
       <button class="cat-btn" data-cat="people"><span class="ce">🧑</span>ЛЮДИ</button>
       <button class="cat-btn" data-cat="tech"><span class="ce">💻</span>ТЕХНОЛОГИИ</button>
+      <button class="cat-btn" data-cat="abstract"><span class="ce">💭</span>АБСТРАКЦИИ</button>
+      <button class="cat-btn" data-cat="city"><span class="ce">🏙️</span>ГОРОД</button>
+      <button class="cat-btn" data-cat="creative"><span class="ce">🎨</span>ТВОРЧЕСТВО</button>
+      <button class="cat-btn" data-cat="cinema"><span class="ce">🎬</span>КИНО</button>
       <button class="cat-btn" data-cat="mix" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;"><span style="font-size:18px;">🎲</span>ВСЕ ВМЕСТЕ</button>
     </div>
   </div>
@@ -306,12 +310,16 @@ const WORDS = {
   places:   ['Библиотека','Рынок','Маяк','Тюрьма','Монастырь','Аэропорт','Пляж','Завод','Больница','Замок','Цирк','Кладбище','Стадион','Школа','Ферма','Порт','Шахта','Кафе','Музей','Лаборатория','Мечеть','Собор','Синагога','Храм','Дворец','Крепость','Башня','Рудник','Верфь','Причал','Склад','Теплица','Арена','Галерея','Архив','Обсерватория','Планетарий','Зоопарк','Ботанический сад','Парк','Площадь','Переулок','Мост','Тоннель','Вокзал','Метро','Перекрёсток','Бухта','Маршрут','Причал'],
   people:   ['Учитель','Врач','Ребёнок','Старик','Художник','Солдат','Судья','Монах','Актёр','Странник','Вождь','Учёный','Поэт','Повар','Шут','Охотник','Торговец','Пилот','Сыщик','Мать','Отец','Брат','Сестра','Бабушка','Дед','Сосед','Друг','Враг','Незнакомец','Подросток','Юноша','Девушка','Старец','Вдова','Сирота','Близнецы','Коллега','Начальник','Подчинённый','Лидер','Изгой','Герой','Злодей','Мудрец','Безумец','Отшельник','Знакомый','Ребёнок','Близкий','Странник'],
   tech:     ['Экран','Робот','Сеть','Код','Батарея','Антенна','Процессор','Алгоритм','Дрон','Чип','Спутник','Интерфейс','Сигнал','Камера','Сервер','Кабель','Сканер','Принтер','Маршрутизатор','Архив','База данных','Браузер','Облако','Протокол','Шифрование','Уязвимость','Обновление','Прошивка','Консоль','Терминал','Пиксель','Байт','Гигабайт','Частота','Задержка','Компилятор','Отладчик','Фреймворк','Библиотека','Токен','Блокчейн','Транзакция','Виртуальность','Симуляция','Голограмма','Нейросеть','Датчик','Микрофон','Искусственный интеллект','Смарт-контракт'],
+  abstract: ['Свобода','Время','Тишина','Граница','Ритм','Пространство','Момент','Тень','Эхо','Пустота','Бесконечность','Равновесие','Хаос','Судьба','Истина','Случайность','Память','Смысл','Движение','Расстояние','Скорость','Сила','Слабость','Форма','Цвет','Звук','Запах','Вкус','Текстура','Температура','Вес','Плотность','Прозрачность','Яркость','Контраст','Симметрия','Гармония','Напряжение','Пауза','Начало','Конец','Середина','Глубина','Высота','Длина','Ширина','Угол','Точка','Линия','Волна'],
+  city:     ['Фонарь','Скамейка','Витрина','Подъезд','Светофор','Тротуар','Фасад','Балкон','Арка','Фонтан','Ограда','Лужа','Мусорный бак','Вывеска','Киоск','Переход','Бордюр','Ступени','Козырёк','Урна','Трамвай','Остановка','Перекрёсток','Переулок','Площадь','Ворота','Шлагбаум','Мост','Тоннель','Колодец','Антенна','Труба','Крыша','Чердак','Подвал','Гараж','Стоянка','Велодорожка','Граффити','Брусчатка','Асфальт','Лестница','Лифт','Почтовый ящик','Домофон','Пешеход','Счётчик','Аптека','Кофейня','Банк'],
+  creative: ['Кисть','Холст','Краска','Карандаш','Скрипка','Рояль','Микрофон','Сцена','Занавес','Прожектор','Маска','Грим','Декорация','Мольберт','Палитра','Рама','Скульптура','Фотоаппарат','Объектив','Штатив','Ноты','Смычок','Барабан','Гитара','Флейта','Акварель','Уголь','Пастель','Глина','Мозаика','Витраж','Гравюра','Эскиз','Афиша','Партитура','Подмостки','Кулисы','Гримёрка','Суфлёр','Хор','Балет','Либретто','Реквизит','Тюль','Фреска','Лак','Рамка','Пьедестал','Дирижёр','Антракт'],
+  cinema:   ['Экран','Камера','Сценарий','Режиссёр','Актёр','Декорация','Грим','Кадр','Монтаж','Титры','Трейлер','Афиша','Билет','Попкорн','Зал','Ряд','Проектор','Плёнка','Дубль','Хлопушка','Реквизит','Костюм','Свет','Тень','Ракурс','Крупный план','Саундтрек','Озвучка','Субтитры','Премьера','Фестиваль','Приз','Рецензия','Жанр','Сиквел','Ремейк','Сцена','Диалог','Монолог','Флэшбэк','Антагонист','Протагонист','Финал','Пролог','Эпилог','Спецэффект','Каскадёр','Постер','Сериал','Документалка'],
   mix: []
 };
 WORDS.mix = Object.keys(WORDS).filter(k=>k!=='mix').flatMap(k=>WORDS[k]);
 
-const CAT_NAMES={animals:'Животные',objects:'Предметы',nature:'Природа',food:'Еда',emotions:'Эмоции',places:'Места',people:'Люди',tech:'Технологии',mix:'Все вместе'};
-const CAT_EMOJI={animals:'🐾 ',objects:'🪑 ',nature:'🌿 ',food:'🍎 ',emotions:'❤️ ',places:'🌍 ',people:'🧑 ',tech:'💻 ',mix:'🎲 '};
+const CAT_NAMES={animals:'Животные',objects:'Предметы',nature:'Природа',food:'Еда',emotions:'Эмоции',places:'Места',people:'Люди',tech:'Технологии',abstract:'Абстракции',city:'Город',creative:'Творчество',cinema:'Кино',mix:'Все вместе'};
+const CAT_EMOJI={animals:'🐾 ',objects:'🪑 ',nature:'🌿 ',food:'🍎 ',emotions:'❤️ ',places:'🌍 ',people:'🧑 ',tech:'💻 ',abstract:'💭 ',city:'🏙️ ',creative:'🎨 ',cinema:'🎬 ',mix:'🎲 '};
 const TITLES=['Отлично!','Прекрасно!','Образно!','Так держать!'];
 const SUBS=['Речь стала богаче 🎨','Образность прокачана','Прилагательных стало больше','Продолжай в том же духе'];
 
@@ -384,14 +392,22 @@ function loadWord(){
 }
 
 function startWord(){
-  clearInterval(wT);gs.wLeft=cfg.wordSec;
+  clearInterval(wT);
+  gs.wLeft=cfg.wordSec;
+  gs.wordStart=Date.now();
+  gs.wordDur=cfg.wordSec*1000;
   const bar=document.getElementById('g-timer-bar');
   bar.style.transition='none';
   bar.style.width='100%';
-  bar.offsetHeight; // force reflow
+  bar.offsetHeight;
   bar.style.transition='width 1s linear';
   updTimer();
-  wT=setInterval(()=>{gs.wLeft--;updTimer();if(gs.wLeft<=0){sndWord();nextWord();}},1000);
+  wT=setInterval(()=>{
+    const elapsed=Date.now()-gs.wordStart;
+    gs.wLeft=Math.max(0, cfg.wordSec - Math.floor(elapsed/1000));
+    updTimer();
+    if(elapsed>=gs.wordDur){sndWord();nextWord();}
+  },200);
 }
 
 function updTimer(){
@@ -402,13 +418,17 @@ function updTimer(){
 }
 
 function startSess(){
+  gs.sessStart=Date.now();
+  gs.sessDur=gs.sessLeft*1000;
   sT=setInterval(()=>{
-    gs.sessLeft--;
-    const m=Math.floor(gs.sessLeft/60),s=gs.sessLeft%60;
+    const elapsed=Date.now()-gs.sessStart;
+    const left=Math.max(0, Math.ceil((gs.sessDur-elapsed)/1000));
+    gs.sessLeft=left;
+    const m=Math.floor(left/60),s=left%60;
     document.getElementById('g-sess-time').textContent=m+':'+(s<10?'0':'')+s;
-    if(gs.sessLeft<=30)document.getElementById('g-sess-wrap').classList.add('urgent');
-    if(gs.sessLeft<=0){sndSess();endGame();}
-  },1000);
+    if(left<=30)document.getElementById('g-sess-wrap').classList.add('urgent');
+    if(elapsed>=gs.sessDur){sndSess();endGame();}
+  },200);
 }
 
 function nextWord(){clearInterval(wT);gs.played.push(gs.words[gs.idx]);gs.idx++;loadWord();}
@@ -421,7 +441,8 @@ function setPaused(v){
   if(v){clearInterval(wT);clearInterval(sT);pauseWL=gs.wLeft;btn.classList.add('pause-active');icon.textContent='▶';lbl.textContent='Играть';document.getElementById('pause-overlay').classList.add('show');}
   else{document.getElementById('pause-overlay').classList.remove('show');btn.classList.remove('pause-active');icon.textContent='⏸';lbl.textContent='Пауза';gs.wLeft=pauseWL;updTimer();
     wT=setInterval(()=>{gs.wLeft--;updTimer();if(gs.wLeft<=0){sndWord();nextWord();}},1000);
-    sT=setInterval(()=>{gs.sessLeft--;const m=Math.floor(gs.sessLeft/60),s=gs.sessLeft%60;document.getElementById('g-sess-time').textContent=m+':'+(s<10?'0':'')+s;if(gs.sessLeft<=30)document.getElementById('g-sess-wrap').classList.add('urgent');if(gs.sessLeft<=0){sndSess();endGame();}},1000);}
+    gs.sessStart=Date.now();gs.sessDur=gs.sessLeft*1000;
+    sT=setInterval(()=>{const elapsed=Date.now()-gs.sessStart;const left=Math.max(0,Math.ceil((gs.sessDur-elapsed)/1000));gs.sessLeft=left;const m=Math.floor(left/60),s=left%60;document.getElementById('g-sess-time').textContent=m+':'+(s<10?'0':'')+s;if(left<=30)document.getElementById('g-sess-wrap').classList.add('urgent');if(elapsed>=gs.sessDur){sndSess();endGame();}},200);}
 }
 document.getElementById('g-pause').addEventListener('click',()=>setPaused(!gs.paused));
 document.getElementById('pause-resume').addEventListener('click',()=>setPaused(false));
@@ -452,6 +473,24 @@ document.getElementById('sound-toggle').addEventListener('click',()=>{
   document.getElementById('sound-toggle').textContent=soundOn?'🔊':'🔇';
 });
 if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
+
+// Mobile fix: handle tab/screen visibility changes
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden) {
+    // Page hidden - store current time
+    gs._hiddenAt = Date.now();
+  } else {
+    // Page visible again - adjust start times
+    if(gs._hiddenAt) {
+      const hiddenDur = Date.now() - gs._hiddenAt;
+      if(gs.sessStart) gs.sessStart += hiddenDur;
+      if(gs.wordStart) gs.wordStart += hiddenDur;
+      gs._hiddenAt = null;
+    }
+    // Unlock audio on iOS
+    try { ac(); } catch(e) {}
+  }
+});
 </script>
 </body>
 </html>
